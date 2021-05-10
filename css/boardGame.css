@@ -1,0 +1,22 @@
+:root{
+    --section14: section:nth-child(14);
+}
+
+.board-game section{
+    border-left: 2px solid var(--borderColor);
+    border-right: 2px solid var(--borderColor);
+}
+.board-game section:nth-child(1){
+    border-top: 2px solid var(--borderColor);
+}
+.board-game section:nth-child(23){
+    border-top: 2px solid var(--borderColor);
+    border-left: none;
+    border-right: none;
+}
+.board-game section:nth-child(11) div:nth-child(n+6):nth-child(-n+9), .board-game section:nth-child(12) div:nth-child(n+6):nth-child(-n+9){
+    background-color: red;
+}
+.board-game section:nth-child(14) div:nth-child(n+6):nth-child(-n+9), .board-game section:nth-child(14) div:nth-child(n+6):nth-child(-n+9){
+    background-color: blue;
+}
