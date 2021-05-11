@@ -1,22 +1,20 @@
 var xAxis = 7;
 var yAxis = 12;
 var currentPacman, currentClass;
-var expectedPacman;
+var expectedPacman, timeMovement = 0;
 
 class Pacman{
     constructor(){
+        currentClass = "pacmanLeft"
         this.display()
         this.controls()
+        this.left()
     }
 
     display(){
-        currentClass = "pacmanLeft"
-
         currentPacman = BOARD_GAME.childNodes[yAxis].childNodes[xAxis]
         currentPacman.classList.add("pacman")
         currentPacman.classList.add(currentClass)
-
-        this.left()
     }
 
     controls(){
@@ -26,23 +24,20 @@ class Pacman{
                 case 39:
                     //Right
                     currentClass = "pacmanRight"
-
-                    currentPacman.classList.add("pacman")
-                    currentPacman.classList.add(currentClass)
+                    this.display()
+                    this.right()
                 break;
                 case 37:
                     //Left
                     currentClass = "pacmanLeft"
-
-                    currentPacman.classList.add("pacman")
-                    currentPacman.classList.add(currentClass)
+                    this.display()
+                    this.left()
                 break;
                 case 40:
                     //Down
                     currentClass = "pacmanDown"
 
-                    currentPacman.classList.add("pacman")
-                    currentPacman.classList.add(currentClass)
+                    this.display()
                 break;
                 case 38:
                     //Up
@@ -56,21 +51,56 @@ class Pacman{
     }
 
     left(){
-        xAxis--
-        expectedPacman = BOARD_GAME.childNodes[yAxis].childNodes[xAxis]
+        expectedPacman = BOARD_GAME.childNodes[yAxis].childNodes[xAxis - 1]
 
         if(expectedPacman.dataset.value == 1){
-            
+            console.log(`No`)
         }else{
-            setTimeout(() => {
-                currentPacman.classList.remove("pacman")
-
-                expectedPacman.classList.add("pacman")
-                expectedPacman.classList.add(currentClass)
-                currentPacman = expectedPacman
-
-                this.left()
-            }, 1000)
+            this.leftwards()
         }
+    }
+
+    leftwards(){
+        timeMovement -= 2
+
+        setTimeout(() => {
+            currentPacman.style.transform = `translateX(${timeMovement}px)`;
+
+            if(timeMovement <= -20){
+                timeMovement = 0
+                currentPacman.classList.remove("pacman")
+                xAxis--
+                this.display()
+            }else{
+                this.leftwards()
+            }
+        }, 30)
+    }
+
+    right(){
+        expectedPacman = BOARD_GAME.childNodes[yAxis].childNodes[xAxis + 1]
+
+        if(expectedPacman.dataset.value == 1){
+            console.log(`No`)
+        }else{
+            this.rightwards()
+        }
+    }
+
+    rightwards(){
+        timeMovement += 2
+
+        setTimeout(() => {
+            currentPacman.style.transform = `translateX(${timeMovement}px)`;
+
+            if(timeMovement >= 20){
+                timeMovement = 0
+                currentPacman.classList.remove("pacman")
+                xAxis++
+                this.display()
+            }else{
+                this.rightwards()
+            }
+        }, 30)
     }
 }
