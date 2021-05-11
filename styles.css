@@ -19,7 +19,7 @@ main{
     width: 100vw;
     height: 100vh;
 
-    background-color: var(--mainColor);
+    background-color: var(--insideColor);
 }
 .start-button{
     position: absolute;
@@ -42,7 +42,6 @@ main{
     width: 280px;
     height: 460px;
 
-    box-shadow: 9px 9px 9px var(--shadowColor), -9px -9px 9px var(--shadowColor), -9px 9px 9px var(--shadowColor), 9px -9px 9px var(--shadowColor);
     background-color: var(--insideColor);
 }
 .board-game{

@@ -20,6 +20,27 @@ class Game{
                 row.appendChild(cell)
             }
         }
+
+        this.printGrid()
+    }
+
+    printGrid(){
+        for(let i = 1; i < 22; i++){
+            let currentRow = BOARD_GAME.childNodes[i]
+            let currentArray = ROWS_ARRAY[i - 1]
+            
+            for(let j = 0; j < CELLS; j++){
+                let currentCell = currentRow.childNodes[j]
+                for(let comprobation of currentArray){
+                    if(j + 1 === comprobation){
+                        currentCell.style.backgroundColor = "blue"
+                        currentCell.dataset.value = 1
+                    }
+                }
+            }
+        }
+
+        const pacman = new Pacman()
     }
 }
 

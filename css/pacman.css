@@ -1,0 +1,18 @@
+.pacman{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("../assets/pacman/Pacman-moving.gif");
+}
+.pacmanRight{
+    transform: rotateY(10deg);
+}
+.pacmanLeft{
+    transform: rotateY(180deg);
+}
+.pacmanUp{
+    transform: rotate(-90deg);
+}
+.pacmanDown{
+    transform: rotate(90deg);
+}
