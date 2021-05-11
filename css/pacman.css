@@ -1,8 +1,15 @@
 .pacman{
+    position: absolute;
+    left: calc(50% - 8px);
+    top: calc(50% - 8px);
+    width: 16px;
+    height: 16px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-image: url("../assets/pacman/Pacman-moving.gif");
+
+    z-index: 2;
 }
 .pacmanRight{
     transform: rotateY(10deg);

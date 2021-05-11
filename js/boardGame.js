@@ -18,6 +18,6 @@ const row18 = [2, 3, 12, 13]
 const row19 = [5, 6, 7, 8, 9, 10]
 const row20 = [2, 3, 5, 10, 12, 13]
 const row21 = [2, 7, 8, 13]
-const row22 = [4, 5, 6, 7, 8, 9, 10, 11]
+const row22 = [4, 5, 10, 11]
 
 const ROWS_ARRAY = [row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18, row19, row20, row21, row22]

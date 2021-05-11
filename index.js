@@ -33,7 +33,7 @@ class Game{
                 let currentCell = currentRow.childNodes[j]
                 for(let comprobation of currentArray){
                     if(j + 1 === comprobation){
-                        currentCell.style.backgroundColor = "blue"
+                        currentCell.style.backgroundColor = "#03091f"
                         currentCell.dataset.value = 1
                     }
                 }
