@@ -1,5 +1,6 @@
 const START_BUTTON = document.getElementById("start-button")
 const BOARD_GAME = document.getElementById("board-game")
+const BOARD_GAME_STYLES = document.getElementById("boardGameStyles")
 const ROWS = 23
 const CELLS = (window.innerWidth <= 509) ? 14 : 23
 
@@ -25,9 +26,16 @@ class Game{
     }
 
     printGrid(){
-        for(let i = 1; i < 22; i++){
+
+        if(window.innerWidth <= 509){
+            BOARD_GAME_STYLES.href = "./css/boardGame.css"
+        }else{
+            BOARD_GAME_STYLES.href = "./css/desktopBoardGame.css"
+        }
+
+        for(let i = 0; i < 22; i++){
             let currentRow = BOARD_GAME.childNodes[i]
-            let currentArray = ROWS_ARRAY[i - 1]
+            let currentArray = ROWS_ARRAY[i]
             
             for(let j = 0; j < CELLS; j++){
                 let currentCell = currentRow.childNodes[j]
@@ -40,7 +48,7 @@ class Game{
             }
         }
 
-        const pacman = new Pacman()
+        let pacman = new Pacman()
     }
 }
 

@@ -1,5 +1,6 @@
-var initialX = 7;
-var initialY = 12;
+var initialX = (window.innerWidth <= 509) ? 7 : 11
+var initialY = 12
+var yPortalAxis = (window.innerWidth <= 509) ? 12 : 11
 var currentPacman, currentClass, currentContainer;
 var timeMovement = 0;
 
@@ -36,7 +37,7 @@ class Pacman{
             
             switch(code){
                 case 37: //Left
-                    if(this.x - 1 < 0 && this.y === 12){
+                    if(this.x - 1 < 0 && this.y === yPortalAxis){
                         expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x - 1]
                         this.portal(code)
                     }else if(this.x - 1 < 0){
@@ -55,15 +56,17 @@ class Pacman{
                     }
                 break;
                 case 39: //Right
-                    if(this.x + 1 > 13 && this.y === 12){
+
+                    if(this.x + 1 > CELLS - 1 && this.y === yPortalAxis){
                         expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
                         this.portal(code)
-                    }else if(this.x + 1 > 13){
+                    }else if(this.x + 1 > CELLS - 1){
                         //Nothing
                     }else{
                         expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
                         this.available(expectedPacman, code)
                     }
+
                 break;
                 case 40: //Down
                     if(this.y + 1 > 21){
@@ -80,7 +83,7 @@ class Pacman{
     portal(dir){
         switch(dir){
             case 37: //Left
-                this.x = 13
+                this.x = CELLS - 1
                 this.keyboardCode = dir
             break;
             case 39: //Right
