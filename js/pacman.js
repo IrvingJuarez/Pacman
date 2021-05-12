@@ -8,6 +8,8 @@ class Pacman{
         currentClass = "pacmanLeft"
         this.x = initialX
         this.y = initialY
+        this.process = false
+
         this.display()
         this.controls()
     }
@@ -22,45 +24,73 @@ class Pacman{
 
     controls(){
         document.addEventListener("keydown", evt => {
-
-            switch(evt.keyCode){
-                case 37: //Left
-                    this.comprobation(evt.keyCode)
-                break;
-                case 38: //Up
-                    this.comprobation(evt.keyCode)
-                break;
-                case 39: //Right
-                    this.comprobation(evt.keyCode)
-                break;
-                case 40: //Down
-                    this.comprobation(evt.keyCode)
-                break;
-            }
+            this.keyboardCode = evt.keyCode
+            this.comprobation(this.keyboardCode)
         })
     }
 
     comprobation(code){
         let expectedPacman
 
-        switch(code){
+        if(this.process === false){
+            
+            switch(code){
+                case 37: //Left
+                    if(this.x - 1 < 0 && this.y === 12){
+                        expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x - 1]
+                        this.portal(code)
+                    }else if(this.x - 1 < 0){
+                        //Nothing
+                    }else{
+                        expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x - 1]
+                        this.available(expectedPacman, code)
+                    }
+                break;
+                case 38: //Up
+                    if(this.y - 1 < 0){
+                        //Nothing
+                    }else{
+                        expectedPacman = BOARD_GAME.childNodes[this.y - 1].childNodes[this.x]
+                        this.available(expectedPacman, code)
+                    }
+                break;
+                case 39: //Right
+                    if(this.x + 1 > 13 && this.y === 12){
+                        expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
+                        this.portal(code)
+                    }else if(this.x + 1 > 13){
+                        //Nothing
+                    }else{
+                        expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
+                        this.available(expectedPacman, code)
+                    }
+                break;
+                case 40: //Down
+                    if(this.y + 1 > 21){
+                        //Nothing
+                    }else{
+                        expectedPacman = BOARD_GAME.childNodes[this.y + 1].childNodes[this.x]
+                        this.available(expectedPacman, code)
+                    }
+                break;
+            }
+        }
+    }
+
+    portal(dir){
+        switch(dir){
             case 37: //Left
-                expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x - 1]
-                this.available(expectedPacman, code)
-            break;
-            case 38: //Up
-                expectedPacman = BOARD_GAME.childNodes[this.y - 1].childNodes[this.x]
-                this.available(expectedPacman, code)
+                this.x = 13
+                this.keyboardCode = dir
             break;
             case 39: //Right
-                expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
-                this.available(expectedPacman, code)
-            break;
-            case 40: //Down
-                expectedPacman = BOARD_GAME.childNodes[this.y + 1].childNodes[this.x]
-                this.available(expectedPacman, code)
+                this.x = 0
+                this.keyboardCode = dir
             break;
         }
+
+        this.changePosition()
+        this.comprobation(this.keyboardCode)
     }
 
     available(expectedPosition, direction){
@@ -70,6 +100,7 @@ class Pacman{
             if(expectedPosition.dataset.value == 1){
                 //No available
             }else{
+                this.process = true
                 this.move(direction)
             }
         }
@@ -107,7 +138,8 @@ class Pacman{
             timeMovement = 0
             this.x--
             this.changePosition()
-            this.comprobation(37)
+            this.process = false
+            this.comprobation(this.keyboardCode)
         }else{
             setTimeout(() => {
                 currentPacman.style.transform = `translateX(${timeMovement}px)`
@@ -123,7 +155,8 @@ class Pacman{
             timeMovement = 0
             this.x++
             this.changePosition()
-            this.comprobation(39)
+            this.process = false
+            this.comprobation(this.keyboardCode)
         }else{
             setTimeout(() => {
                 currentPacman.style.transform = `translateX(${timeMovement}px)`
@@ -139,7 +172,8 @@ class Pacman{
             timeMovement = 0
             this.y--
             this.changePosition()
-            this.comprobation(38)
+            this.process = false
+            this.comprobation(this.keyboardCode)
         }else{
             setTimeout(() => {
                 currentPacman.style.transform = `translateY(${timeMovement}px)`
@@ -155,11 +189,8 @@ class Pacman{
             timeMovement = 0
             this.y++
             this.changePosition()
-            if(this.y > 20){
-
-            }else{
-                this.comprobation(40)
-            }
+            this.process = false
+            this.comprobation(this.keyboardCode)
         }else{
             setTimeout(() => {
                 currentPacman.style.transform = `translateY(${timeMovement}px)`
