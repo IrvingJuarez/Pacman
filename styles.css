@@ -21,8 +21,25 @@ main{
 
     background-color: var(--insideColor);
 }
-.start-button{
+.firstView{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: absolute;
+    left: calc(50% - 125px);
+    top: calc(50% - 125px);
+    width: 250px;
+    height: 250px;
+}
+.firstView img{
+    width: 95%;
+    height: 50px;
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.start-button{
     width: 100px;
     height: 35px;
 
@@ -56,6 +73,24 @@ main{
 .cell{
     width: 20px;
     height: 100%;
+}
+.portalLeft{
+    box-shadow: -5px 0px 5px blue;
+}
+.portalRight{
+    box-shadow: 5px 0px 5px blue;
+}
+.ghost{
+    position: absolute;
+    left: calc(50% - 9px);
+    top: calc(50% - 9px);
+    width: 18px;
+    height: 18px;
+
+    background-image: url("./assets/ghosts/ghost.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 @media (min-width: 510px) {

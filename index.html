@@ -11,7 +11,10 @@
 </head>
 <body>
     <main>
-        <button class="start-button" id="start-button" onclick="startGame()">Start Game</button>
+        <section class="firstView" id="firstView">
+            <img src="./assets/pacman/logo.png" alt="Pacman logo">
+            <button class="start-button" onclick="startGame()">Start Game</button>
+        </section>
         <section class="table">
             <section class="board-game" id="board-game"></section>
         </section>
@@ -20,5 +23,6 @@
     <script src="./index.js"></script>
     <script src="./js/boardGame.js"></script>
     <script src="./js/pacman.js"></script>
+    <script src="./js/phantoms.js"></script>
 </body>
 </html>

@@ -73,3 +73,29 @@
     border-bottom: 2px solid var(--borderColor);
     border-top: 2px solid var(--borderColor);
 }
+.board-game section:nth-child(11) div:nth-child(6){
+    border-radius: 5px 0 0 0;
+    border-top: 2px solid red;
+    border-left: 2px solid red;
+}
+.board-game section:nth-child(12) div:nth-child(6){
+    border-radius: 0 0 0 5px;
+    border-left: 2px solid red;
+    border-bottom: 2px solid red;
+}
+.board-game section:nth-child(12) div:nth-child(7), .board-game section:nth-child(12) div:nth-child(8){
+    border-bottom: 2px solid red;
+}
+.board-game section:nth-child(12) div:nth-child(9){
+    border-radius: 0 0 5px 0;
+    border-right: 2px solid red;
+    border-bottom: 2px solid red;
+}
+.board-game section:nth-child(11) div:nth-child(9){
+    border-radius: 0 5px 0 0;
+    border-top: 2px solid red;
+    border-right: 2px solid red;
+}
+.board-game section:nth-child(11) div:nth-child(8), .board-game section:nth-child(11) div:nth-child(7){
+    border-top: 1px solid orange;
+}

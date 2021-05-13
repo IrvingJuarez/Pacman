@@ -85,15 +85,22 @@ class Pacman{
             case 37: //Left
                 this.x = CELLS - 1
                 this.keyboardCode = dir
+                this.portalClass = "portalLeft"
             break;
             case 39: //Right
                 this.x = 0
                 this.keyboardCode = dir
+                this.portalClass = "portalRight"
             break;
         }
 
+        BOARD_GAME.classList.add(this.portalClass)
         this.changePosition()
         this.comprobation(this.keyboardCode)
+
+        setTimeout(() => {
+            BOARD_GAME.classList.remove(this.portalClass)
+        }, 200)
     }
 
     available(expectedPosition, direction){

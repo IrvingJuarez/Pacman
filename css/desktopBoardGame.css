@@ -23,80 +23,92 @@
     border-top: 2px solid var(--borderColor);
     border-left: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(2) div:nth-child(3), .board-game section:nth-child(2) div:nth-child(19), .board-game section:nth-child(2) div:nth-child(22), .board-game section:nth-child(4) div:nth-child(17), .board-game section:nth-child(5) div:nth-child(3), .board-game section:nth-child(5) div:nth-child(22), .board-game section:nth-child(7) div:nth-child(19), .board-game section:nth-child(8) div:nth-child(3), .board-game section:nth-child(8) div:nth-child(22), .board-game section:nth-child(9) div:nth-child(15), .board-game section:nth-child(14) div:nth-child(17), .board-game section:nth-child(15) div:nth-child(22), .board-game section:nth-child(16) div:nth-child(15), .board-game section:nth-child(17) div:nth-child(20), .board-game section:nth-child(21) div:nth-child(7), .board-game section:nth-child(21) div:nth-child(18), .board-game section:nth-child(22) div:nth-child(1), .board-game section:nth-child(22) div:nth-child(19){
     border-radius: 0 5px 0 0;
     border-top: 2px solid var(--borderColor);
     border-right: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(3) div:nth-child(2), .board-game section:nth-child(2) div:nth-child(8), .board-game section:nth-child(2) div:nth-child(15), .board-game section:nth-child(3) div:nth-child(21), .board-game section:nth-child(6) div:nth-child(2), .board-game section:nth-child(6) div:nth-child(21), .board-game section:nth-child(7) div:nth-child(15), .board-game section:nth-child(9) div:nth-child(2), .board-game section:nth-child(9) div:nth-child(21), .board-game section:nth-child(15) div:nth-child(17), .board-game section:nth-child(21) div:nth-child(13){
     border-radius: 0 0 0 5px;
     border-left: 2px solid var(--borderColor);
     border-bottom: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(2) div:nth-child(9), .board-game section:nth-child(2) div:nth-child(16), .board-game section:nth-child(3) div:nth-child(3), .board-game section:nth-child(2) div:nth-child(9), .board-game section:nth-child(3) div:nth-child(22), .board-game section:nth-child(6) div:nth-child(3), .board-game section:nth-child(6) div:nth-child(22), .board-game section:nth-child(7) div:nth-child(9), .board-game section:nth-child(9) div:nth-child(3), .board-game section:nth-child(9) div:nth-child(22), .board-game section:nth-child(15) div:nth-child(7), .board-game section:nth-child(21) div:nth-child(11){
     border-radius: 0 0 5px 0;
     border-right: 2px solid var(--borderColor);
     border-bottom: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(2) div:nth-child(6), .board-game section:nth-child(4) div:nth-child(9), .board-game section:nth-child(5) div:nth-child(13), .board-game section:nth-child(7) div:nth-child(6), .board-game section:nth-child(7) div:nth-child(13), .board-game section:nth-child(7) div:nth-child(16), .board-game section:nth-child(9) div:nth-child(10), .board-game section:nth-child(11) div:nth-child(3), .board-game section:nth-child(12) div:nth-child(7), .board-game section:nth-child(13) div:nth-child(3), .board-game section:nth-child(14) div:nth-child(8), .board-game section:nth-child(14) div:nth-child(14), .board-game section:nth-child(15) div:nth-child(4), .board-game section:nth-child(15) div:nth-child(18), .board-game section:nth-child(16) div:nth-child(10), .board-game section:nth-child(17) div:nth-child(5), .board-game section:nth-child(18) div:nth-child(13), .board-game section:nth-child(18) div:nth-child(2), .board-game section:nth-child(19) div:nth-child(9), .board-game section:nth-child(19) div:nth-child(18), .board-game section:nth-child(20) div:nth-child(4), .board-game section:nth-child(20) div:nth-child(22), .board-game section:nth-child(21) div:nth-child(15){
     border-radius: 0 5px 5px 0;
     border-top: 2px solid var(--borderColor);
     border-right: 2px solid var(--borderColor);
     border-bottom: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(2) div:nth-child(18), .board-game section:nth-child(4) div:nth-child(15), .board-game section:nth-child(5) div:nth-child(11), .board-game section:nth-child(7) div:nth-child(8), .board-game section:nth-child(7) div:nth-child(11), .board-game section:nth-child(7) div:nth-child(18), .board-game section:nth-child(9) div:nth-child(14), .board-game section:nth-child(11) div:nth-child(21), .board-game section:nth-child(12) div:nth-child(17), .board-game section:nth-child(13) div:nth-child(21), .board-game section:nth-child(14) div:nth-child(10), .board-game section:nth-child(14) div:nth-child(16), .board-game section:nth-child(15) div:nth-child(6), .board-game section:nth-child(15) div:nth-child(20), .board-game section:nth-child(16) div:nth-child(14), .board-game section:nth-child(17) div:nth-child(19), .board-game section:nth-child(18) div:nth-child(11), .board-game section:nth-child(18) div:nth-child(22), .board-game section:nth-child(19) div:nth-child(15), .board-game section:nth-child(19) div:nth-child(6), .board-game section:nth-child(20) div:nth-child(2), .board-game section:nth-child(20) div:nth-child(20), .board-game section:nth-child(21) div:nth-child(9){
     border-radius: 5px 0 0 5px;
     border-left: 2px solid var(--borderColor);
     border-top: 2px solid var(--borderColor);
     border-bottom: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(3) div:nth-child(5), .board-game section:nth-child(3) div:nth-child(11), .board-game section:nth-child(3) div:nth-child(13), .board-game section:nth-child(3) div:nth-child(19), .board-game section:nth-child(5) div:nth-child(7), .board-game section:nth-child(5) div:nth-child(17), .board-game section:nth-child(9) div:nth-child(5), .board-game section:nth-child(9) div:nth-child(12), .board-game section:nth-child(9) div:nth-child(19), .board-game section:nth-child(10) div:nth-child(7), .board-game section:nth-child(10) div:nth-child(17), .board-game section:nth-child(13) div:nth-child(5), .board-game section:nth-child(13) div:nth-child(19), .board-game section:nth-child(15) div:nth-child(12), .board-game section:nth-child(16) div:nth-child(2), .board-game section:nth-child(16) div:nth-child(22), .board-game section:nth-child(17) div:nth-child(9), .board-game section:nth-child(17) div:nth-child(15), .board-game section:nth-child(18) div:nth-child(4), .board-game section:nth-child(18) div:nth-child(20), .board-game section:nth-child(21) div:nth-child(3), .board-game section:nth-child(21) div:nth-child(21), .board-game section:nth-child(12) div:nth-child(9), .board-game section:nth-child(12) div:nth-child(15){
     border-radius: 0 0 5px 5px;
     border-left: 2px solid var(--borderColor);
     border-right: 2px solid var(--borderColor);
     border-bottom: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(2) div:nth-child(11), .board-game section:nth-child(2) div:nth-child(13), .board-game section:nth-child(6) div:nth-child(9), .board-game section:nth-child(6) div:nth-child(15), .board-game section:nth-child(9) div:nth-child(7), .board-game section:nth-child(9) div:nth-child(17), .board-game section:nth-child(11) div:nth-child(5), .board-game section:nth-child(11) div:nth-child(19), .board-game section:nth-child(17) div:nth-child(7), .board-game section:nth-child(17) div:nth-child(12), .board-game section:nth-child(17) div:nth-child(17), .board-game section:nth-child(20) div:nth-child(11), .board-game section:nth-child(20) div:nth-child(13){
     border-radius: 5px 5px 0 0;
     border-left: 2px solid var(--borderColor);
     border-right: 2px solid var(--borderColor);
     border-top: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(4) div:nth-child(8), .board-game section:nth-child(4) div:nth-child(16), .board-game section:nth-child(5) div:nth-child(12), .board-game section:nth-child(12) div:nth-child(6), .board-game section:nth-child(12) div:nth-child(18), .board-game section:nth-child(11) div:nth-child(1), .board-game section:nth-child(11) div:nth-child(2), .board-game section:nth-child(11) div:nth-child(22), .board-game section:nth-child(11) div:nth-child(23), .board-game section:nth-child(13) div:nth-child(1), .board-game section:nth-child(13) div:nth-child(2), .board-game section:nth-child(13) div:nth-child(22), .board-game section:nth-child(13) div:nth-child(23), .board-game section:nth-child(14) div:nth-child(11), .board-game section:nth-child(14) div:nth-child(13), .board-game section:nth-child(15) div:nth-child(3), .board-game section:nth-child(15) div:nth-child(21), .board-game section:nth-child(18) div:nth-child(1), .board-game section:nth-child(18) div:nth-child(23), .board-game section:nth-child(19) div:nth-child(8), .board-game section:nth-child(19) div:nth-child(16), .board-game section:nth-child(21) div:nth-child(10), .board-game section:nth-child(21) div:nth-child(14){
     border-top: 2px solid var(--borderColor);
     border-bottom: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(8) div:nth-child(5), .board-game section:nth-child(8) div:nth-child(12), .board-game section:nth-child(8) div:nth-child(19), .board-game section:nth-child(10) div:nth-child(9), .board-game section:nth-child(10) div:nth-child(15), .board-game section:nth-child(11) div:nth-child(9), .board-game section:nth-child(11) div:nth-child(15), .board-game section:nth-child(18) div:nth-child(7), .board-game section:nth-child(18) div:nth-child(17){
     border-left: 2px solid var(--borderColor);
     border-right: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(1) div:nth-child(8), .board-game section:nth-child(1) div:nth-child(15), .board-game section:nth-child(22) div:nth-child(17), .board-game section:nth-child(12) div:nth-child(5){
     border-left: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(1) div:nth-child(9), .board-game section:nth-child(1) div:nth-child(16), .board-game section:nth-child(22) div:nth-child(7), .board-game section:nth-child(12) div:nth-child(19){
     border-right: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(7) div:nth-child(12), .board-game section:nth-child(14) div:nth-child(12), .board-game section:nth-child(20) div:nth-child(3), .board-game section:nth-child(20) div:nth-child(21){
     border-top: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(19) div:nth-child(7), .board-game section:nth-child(19) div:nth-child(17), .board-game section:nth-child(18) div:nth-child(12){
     border-bottom: 2px solid var(--borderColor);
 }
-
 .board-game section:nth-child(5) div:nth-child(5), .board-game section:nth-child(5) div:nth-child(19){
     border-radius: 5px;
     border: 2px solid var(--borderColor);
+}
+.board-game section:nth-child(11) div:nth-child(11){
+    border-radius: 5px 0 0 0;
+    border-top: 2px solid red;
+    border-left: 2px solid red;
+}
+.board-game section:nth-child(12) div:nth-child(11){
+    border-radius: 0 0 0 5px;
+    border-left: 2px solid red;
+    border-bottom: 2px solid red;
+}
+.board-game section:nth-child(12) div:nth-child(12){
+    border-bottom: 2px solid red;
+}
+.board-game section:nth-child(12) div:nth-child(13){
+    border-radius: 0 0 5px 0;
+    border-right: 2px solid red;
+    border-bottom: 2px solid red;
+}
+.board-game section:nth-child(11) div:nth-child(13){
+    border-radius: 0 5px 0 0;
+    border-top: 2px solid red;
+    border-right: 2px solid red;
+}
+.board-game section:nth-child(11) div:nth-child(12){
+    border-top: 1px solid orange;
 }

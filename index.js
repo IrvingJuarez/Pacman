@@ -1,4 +1,4 @@
-const START_BUTTON = document.getElementById("start-button")
+const FIRST_VIEW = document.getElementById("firstView")
 const BOARD_GAME = document.getElementById("board-game")
 const BOARD_GAME_STYLES = document.getElementById("boardGameStyles")
 const ROWS = 23
@@ -6,7 +6,10 @@ const CELLS = (window.innerWidth <= 509) ? 14 : 23
 
 class Game{
     constructor(){
+        this.jailBlocks = []
         this.grid()
+        this.jail()
+        ghosts()
     }
 
     grid(){
@@ -50,9 +53,32 @@ class Game{
 
         let pacman = new Pacman()
     }
+
+    jail(){
+        this.jailY = 10
+
+        if(window.innerWidth <= 509){
+            this.jailX = 5
+            this.jailWidth = 4
+        }else{
+            this.jailX = 10
+            this.jailWidth = 3
+        }
+
+        for(let k = 0; k < this.jailWidth; k++){
+            this.jailBlocks.push(BOARD_GAME.childNodes[this.jailY].childNodes[this.jailX])
+            this.jailBlocks.push(BOARD_GAME.childNodes[this.jailY + 1].childNodes[this.jailX])
+
+            this.jailX++
+        }
+
+        this.jailBlocks.map(block => {
+            block.dataset.value = 1
+        })
+    }
 }
 
 function startGame(){
     const newGame = new Game()
-    START_BUTTON.style.display = "none"
+    FIRST_VIEW.style.display = "none"
 }
