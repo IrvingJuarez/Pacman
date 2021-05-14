@@ -3,13 +3,13 @@ const BOARD_GAME = document.getElementById("board-game")
 const BOARD_GAME_STYLES = document.getElementById("boardGameStyles")
 const ROWS = 23
 const CELLS = (window.innerWidth <= 509) ? 14 : 23
+var pacman
 
 class Game{
     constructor(){
         this.jailBlocks = []
         this.grid()
         this.jail()
-        ghosts()
     }
 
     grid(){
@@ -50,8 +50,6 @@ class Game{
                 }
             }
         }
-
-        let pacman = new Pacman()
     }
 
     jail(){
@@ -75,6 +73,9 @@ class Game{
         this.jailBlocks.map(block => {
             block.dataset.value = 1
         })
+
+        pacman = new Pacman()
+        ghosts()
     }
 }
 
