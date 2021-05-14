@@ -5,7 +5,7 @@ var movementTime = 0
 class Ghost{
     constructor(){
         this.x = (window.innerWidth <= 509) ? 7 : 11
-        this.y = 9
+        this.y = 0
         this.expectedY = 21
         this.directions = []
         this.display()
@@ -69,22 +69,31 @@ class Ghost{
             }
         }
 
-        if(this.directions.includes(this.towardsY)){
-            this.movement(this.towardsY)
+        if(currentDirection){
+            if(this.directions.length > 2){
+                if(this.directions.includes(this.towardsY)){
+                    this.movement(this.towardsY)
+                }else{
+                    this.movement(currentDirection)
+                }
+            }else{
+                this.movement(currentDirection)
+            }
         }else{
-            this.move()
+            if(this.directions.includes(this.towardsY)){
+                this.movement(this.towardsY)
+            }else{
+                this.move()
+            }
         }
-        // if(currentDirection){
-        //     (this.directions.length > 2) ? this.move() : this.movement(currentDirection)
-        // }else{
-        //     this.move()
-        // }
     }
 
     move(){
         this.chosenDirection = Math.floor(Math.random() * this.directions.length)
         let movDirect = this.directions[this.chosenDirection]
         if(this.towardsY == "Down" && movDirect == "Up"){
+            this.move()
+        }else if(this.towardsY == "Up" && movDirect == "Down"){
             this.move()
         }else{
             this.movement(movDirect)
@@ -119,7 +128,7 @@ class Ghost{
             this.changePosition()
 
             if(this.x != CELLS - 1){
-                (BOARD_GAME.childNodes[this.y].childNodes[this.x + 1].dataset.value == 1) ? this.posibleDirections() : this.Right()
+                (BOARD_GAME.childNodes[this.y].childNodes[this.x + 1].dataset.value == 1) ? this.posibleDirections() : this.posibleDirections("Right")
             }else{
                 this.posibleDirections()
             }
@@ -163,7 +172,7 @@ class Ghost{
             this.changePosition()
 
             if(this.x != 0){
-                (BOARD_GAME.childNodes[this.y].childNodes[this.x - 1].dataset.value == 1) ? this.posibleDirections() : this.Left()
+                (BOARD_GAME.childNodes[this.y].childNodes[this.x - 1].dataset.value == 1) ? this.posibleDirections() : this.posibleDirections("Left")
             }else{
                 this.posibleDirections()
             }
@@ -183,10 +192,12 @@ class Ghost{
             this.y--
             this.changePosition()
 
-            if(this.y != 0){
-                (BOARD_GAME.childNodes[this.y - 1].childNodes[this.x].dataset.value == 1) ? this.posibleDirections() : this.Up()
-            }else{
-                this.posibleDirections()
+            if(this.y != this.expectedY){
+                if(this.y != 0){
+                    (BOARD_GAME.childNodes[this.y - 1].childNodes[this.x].dataset.value == 1) ? this.posibleDirections() : this.Up()
+                }else{
+                    this.posibleDirections()
+                }
             }
         }else{
             setTimeout(() => {
