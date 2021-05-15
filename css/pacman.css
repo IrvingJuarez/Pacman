@@ -8,6 +8,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-image: url("../assets/pacman/Pacman-moving.gif");
+
+    z-index: 1;
 }
 .pacmanRight{
     transform: rotateY(10deg);

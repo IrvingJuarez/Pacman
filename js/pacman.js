@@ -216,5 +216,8 @@ class Pacman{
         currentPacman.style.transform = "none"
         currentContainer.appendChild(currentPacman)
         currentPacman.classList.add(currentClass)
+
+        ghost1.expectedY = this.y
+        ghost1.expectedX = this.x
     }
 }

@@ -1,12 +1,13 @@
-var ghostContainer, currentGhostPosition
+var ghostContainer, currentGhostPosition, ghost1
 const posibleAxis = 4
 var movementTime = 0
 
 class Ghost{
     constructor(){
         this.x = (window.innerWidth <= 509) ? 7 : 11
-        this.y = 0
-        this.expectedY = 21
+        this.y = 9
+        this.expectedY = pacman.y
+        this.expectedX = pacman.x
         this.directions = []
         this.display()
     }
@@ -43,7 +44,6 @@ class Ghost{
                     (this.x === CELLS - 1) ? expectedDirection = undefined : 
                         expectedDirection = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
                         direct = "Right"
-                    
                 break;
                 case 1: //Down
                     (this.y === 21) ? expectedDirection = undefined : 
@@ -63,34 +63,25 @@ class Ghost{
             }
 
             if(expectedDirection != undefined){
-                if(expectedDirection.dataset.value != 1){
+                if(expectedDirection.dataset.value != 1)
                     this.directions.push(direct)
-                }
             }
         }
 
         if(currentDirection){
-            if(this.directions.length > 2){
-                if(this.directions.includes(this.towardsY)){
-                    this.movement(this.towardsY)
-                }else{
-                    this.movement(currentDirection)
-                }
-            }else{
+            (this.directions.length > 2) ? 
+                (this.directions.includes(this.towardsY)) ? this.movement(this.towardsY) : this.movement(currentDirection) 
+                :
                 this.movement(currentDirection)
-            }
         }else{
-            if(this.directions.includes(this.towardsY)){
-                this.movement(this.towardsY)
-            }else{
-                this.move()
-            }
+            (this.directions.includes(this.towardsY)) ? this.movement(this.towardsY) : this.move()
         }
     }
 
     move(){
         this.chosenDirection = Math.floor(Math.random() * this.directions.length)
         let movDirect = this.directions[this.chosenDirection]
+
         if(this.towardsY == "Down" && movDirect == "Up"){
             this.move()
         }else if(this.towardsY == "Up" && movDirect == "Down"){
@@ -148,12 +139,13 @@ class Ghost{
             this.y++
             this.changePosition()
 
-            if(this.y != this.expectedY){
-                if(this.y != 21){
+            if(this.y >= this.expectedY){
+                this.getExpectedX()
+            }else{
+                (this.y != 21) ? 
                     (BOARD_GAME.childNodes[this.y + 1].childNodes[this.x].dataset.value == 1) ? this.posibleDirections() : this.Down()
-                }else{
+                :
                     this.posibleDirections()
-                }
             }
         }else{
             setTimeout(() => {
@@ -192,12 +184,13 @@ class Ghost{
             this.y--
             this.changePosition()
 
-            if(this.y != this.expectedY){
-                if(this.y != 0){
+            if(this.y <= this.expectedY){
+                this.getExpectedX()
+            }else{
+                (this.y != 0) ?
                     (BOARD_GAME.childNodes[this.y - 1].childNodes[this.x].dataset.value == 1) ? this.posibleDirections() : this.Up()
-                }else{
+                :
                     this.posibleDirections()
-                }
             }
         }else{
             setTimeout(() => {
@@ -207,14 +200,27 @@ class Ghost{
         }
     }
 
+    getExpectedX(){
+        let direccion = (this.x < this.expectedX) ? "Right" : "Left"
+        let blocks = (this.x < this.expectedX) ? this.expectedX - this.x : this.x - this.expectedX
+        this.towardsX = direccion
+        console.log(`You need to go to the ${this.towardsX} in ${blocks} blocks`)
+    }
+
     changePosition(){
         ghostContainer.removeChild(currentGhostPosition)
         ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
         currentGhostPosition.style.transform = `none`
         ghostContainer.appendChild(currentGhostPosition)
     }
+
+    movementListen(){
+        setTimeout(() => {
+            (this.expectedY === this.y) ? this.movementListen() : this.whereToGetExpecY()
+        }, 1000)
+    }
 }
 
 function ghosts(){
-    let ghost1 = new Ghost()
+    ghost1 = new Ghost()
 }
