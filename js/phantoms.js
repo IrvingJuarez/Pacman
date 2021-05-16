@@ -1,10 +1,10 @@
-var ghostContainer, currentGhostPosition, ghost1
+var ghostContainer, currentGhostPosition, ghost1, stringTriggerMovement
 const posibleAxis = 4
 var movementTime = 0
 
 class Ghost{
     constructor(){
-        this.x = (window.innerWidth <= 509) ? 7 : 1
+        this.x = (window.innerWidth <= 509) ? 7 : 21
         this.y = 21
         this.expectedY = pacman.y
         this.expectedX = pacman.x
@@ -80,7 +80,12 @@ class Ghost{
             }
         }
 
-        this.setNextMovement(this.towardsX, this.towardsY)
+        if(this.trigger){
+            this.triggerSecondTime = true
+            this.triggerUntilEscape()
+        }else{
+            this.setNextMovement(this.towardsX, this.towardsY)
+        }
     }
 
     setNextMovement(posibleMovInX, posibleMovInY){
@@ -94,6 +99,9 @@ class Ghost{
             this.moveTo(posibleMovInX)
         }else if(y){
             this.moveTo(posibleMovInY)
+        }else{
+            this.trigger = true
+            this.triggerUntilEscape()
         }
     }
 
@@ -146,6 +154,30 @@ class Ghost{
         }
     }
 
+    triggerUntilEscape(){
+        if(!this.trigger){
+            this.trigger = true
+            this.posibleDirections()
+        }else{
+            if(this.triggerSecondTime){
+                let axisComprobation
+                (stringTriggerMovement === "Down" || stringTriggerMovement === "Up") ? axisComprobation = this.towardsX : axisComprobation = this.towardsY
+
+                if(this.arrayPosibleDirections.includes(axisComprobation)){
+                    this.trigger = false
+                    this.triggerSecondTime = false
+                    this.moveTo(axisComprobation)
+                }else{
+                    this.moveTo(stringTriggerMovement)
+                }
+            }else{
+                let triggerMovement = Math.floor(Math.random() * this.arrayPosibleDirections.length)
+                stringTriggerMovement = this.arrayPosibleDirections[triggerMovement]
+                this.moveTo(stringTriggerMovement)
+            }
+        }
+    }
+
     finishedMovementEffect(direction, value){
         movementTime = 0
         if(direction === "Right" || direction === "Left"){
@@ -168,40 +200,19 @@ class Ghost{
         ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
         currentGhostPosition.style.transform = `none`
         ghostContainer.appendChild(currentGhostPosition)
+        this.arrayPosibleDirections = []
+
+        console.log(`X: ${this.x}. ExpectedX: ${this,this.expectedX}. Y: ${this.y}. ExpectedY: ${this.expectedY}`)
+
+        if(this.x != this.expectedX || this.y != this.expectedY){
+            if(!this.trigger){
+                this.posibleDirections()
+            }else{
+                this.trigger = false
+                this.triggerUntilEscape()
+            }
+        }
     }
-
-    // posibleDirections(currentDirection, secondPreference){
-    //     for(let i = 0; i < posibleAxis; i++){
-    //         let expectedDirection, direct
-
-    //         switch (i) {
-    //             case 0: //Right
-    //                 (this.x === CELLS - 1) ? expectedDirection = undefined : 
-    //                     expectedDirection = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
-    //                     direct = "Right"
-    //             break;
-    //             case 1: //Down
-    //                 (this.y === 21) ? expectedDirection = undefined : 
-    //                     expectedDirection = BOARD_GAME.childNodes[this.y + 1].childNodes[this.x]
-    //                     direct = "Down"
-    //             break;
-    //             case 2: //Left
-    //                 (this.x === 0) ? expectedDirection = undefined : 
-    //                     expectedDirection = BOARD_GAME.childNodes[this.y].childNodes[this.x - 1]
-    //                     direct = "Left"
-    //             break;
-    //             case 3: //Up
-    //                 (this.y === 0) ? expectedDirection = undefined : 
-    //                     expectedDirection = BOARD_GAME.childNodes[this.y - 1].childNodes[this.x]
-    //                     direct = "Up"
-    //             break;
-    //         }
-
-    //         if(expectedDirection != undefined){
-    //             if(expectedDirection.dataset.value != 1)
-    //                 this.directions.push(direct)
-    //         }
-    //     }
 
     //     if(currentDirection){
     //         if(this.towardsX){
@@ -285,108 +296,6 @@ class Ghost{
 
     //     this.directions = []
     // }
-
-    Right(){
-        movementTime += 2
-
-        if(movementTime >= 20){
-            movementTime = 0
-            this.x++
-            this.changePosition()
-
-            if(this.x != CELLS - 1){
-                (BOARD_GAME.childNodes[this.y].childNodes[this.x + 1].dataset.value == 1) ? this.posibleDirections() : this.posibleDirections("Right")
-            }else{
-                if(!this.towardsX)
-                    this.posibleDirections()
-            }
-        }else{
-            setTimeout(() => {
-                currentGhostPosition.style.transform = `translateX(${movementTime}px)`
-                this.Right()
-            }, 50)
-        }
-    }
-
-    Down(){
-        movementTime += 2
-
-        if(movementTime >= 20){
-            movementTime = 0
-            this.y++
-            this.changePosition()
-
-            if(this.towardsX){
-                this.secondChance = true
-                this.posibleDirections(this.towardsX, "Down")
-            }else{
-                if(this.y >= this.expectedY){
-                    this.getExpectedX()
-                }else{
-                    (this.y != 21) ? 
-                        (BOARD_GAME.childNodes[this.y + 1].childNodes[this.x].dataset.value == 1) ? this.posibleDirections() : this.Down()
-                    :
-                        this.posibleDirections()
-                }
-            }
-        }else{
-            setTimeout(() => {
-                currentGhostPosition.style.transform = `translateY(${movementTime}px)`
-                this.Down()
-            }, 50)
-        }
-    }
-
-    Left(){
-        movementTime -= 2
-
-        if(movementTime <= -20){
-            movementTime = 0
-            this.x--
-            this.changePosition()
-
-            if(this.x != 0){
-                (BOARD_GAME.childNodes[this.y].childNodes[this.x - 1].dataset.value == 1) ? this.posibleDirections() : this.posibleDirections("Left")
-            }else{
-                if(!this.towardsX)
-                    this.posibleDirections()
-            }
-        }else{
-            setTimeout(() => {
-                currentGhostPosition.style.transform = `translateX(${movementTime}px)`
-                this.Left()
-            }, 50)
-        }
-    }
-
-    Up(){
-        movementTime -= 2
-
-        if(movementTime <= -20){
-            movementTime = 0
-            this.y--
-            this.changePosition()
-
-            if(this.towardsX){
-                this.secondChance = true
-                this.posibleDirections(this.towardsX, "Up")
-            }else{
-                if(this.y <= this.expectedY){
-                    this.getExpectedX()
-                }else{
-                    (this.y != 0) ?
-                        (BOARD_GAME.childNodes[this.y - 1].childNodes[this.x].dataset.value == 1) ? this.posibleDirections() : this.Up()
-                    :
-                        this.posibleDirections()
-                }
-            }
-        }else{
-            setTimeout(() => {
-                currentGhostPosition.style.transform = `translateY(${movementTime}px)`
-                this.Up()
-            }, 50)
-        }
-    }
 
     movementListen(){
         setTimeout(() => {
