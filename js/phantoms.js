@@ -199,6 +199,9 @@ class Ghost{
                 this.trigger = false
                 this.triggerUntilEscape()
             }
+        }else{
+            BOARD_GAME.childNodes[this.y].childNodes[this.x].removeChild(currentGhostPosition)
+            console.log(`Game over`)
         }
     }
 

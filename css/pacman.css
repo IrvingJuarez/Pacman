@@ -7,19 +7,16 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url("../assets/pacman/Pacman-moving.gif");
-
-    z-index: 1;
 }
 .pacmanRight{
-    transform: rotateY(10deg);
+    background-image: url("../assets/pacman/pacman_right.gif");
 }
 .pacmanLeft{
-    transform: rotateY(180deg);
+    background-image: url("../assets/pacman/pacman_left.gif");
 }
 .pacmanUp{
-    transform: rotate(-90deg);
+    background-image: url("../assets/pacman/pacman_up.gif");
 }
 .pacmanDown{
-    transform: rotate(90deg);
+    background-image: url("../assets/pacman/pacman_down.gif");
 }
