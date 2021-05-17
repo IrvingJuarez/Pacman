@@ -24,21 +24,17 @@ class Ghost{
     }
 
     getExpectedX(){
-        if(this.x === this.expectedX){
-            this.towardsX = "Center"
-        }else if(this.x < this.expectedX){
+        if(this.x <= this.expectedX){
             this.towardsX = "Right"  
-        }else if(this.x > this.expectedX){
+        }else if(this.x >= this.expectedX){
             this.towardsX = "Left"
         }
     }
 
     getExpectedY(){
-        if(this.expectedY === this.y){
-            this.towardsY = "Center"
-        }else if(this.expectedY > this.y){
+        if(this.expectedY >= this.y){
             this.towardsY = "Down"
-        }else if(this.expectedY < this.y){
+        }else if(this.expectedY <= this.y){
             this.towardsY = "Up"
         }
         
@@ -184,7 +180,7 @@ class Ghost{
         setTimeout(() => {
             currentGhostPosition.style.transform = `translate${axis}(${movementTime}px)`
             this.moveTo(direction)
-        }, 50)
+        }, 30)
     }
 
     changePosition(){
@@ -195,17 +191,13 @@ class Ghost{
         this.arrayPosibleDirections = []
 
         this.isANewExpectedAxisNecessary()
-
-        if(this.changeInAxisDirection){
-            this.changeInAxisDirectionFunction(changeInAxis)
-        }else{
-            if(this.x != this.expectedX || this.y != this.expectedY){
-                if(!this.trigger){
-                    this.posibleDirections()
-                }else{
-                    this.trigger = false
-                    this.triggerUntilEscape()
-                }
+        
+        if(this.x != this.expectedX || this.y != this.expectedY){
+            if(!this.trigger){
+                this.posibleDirections()
+            }else{
+                this.trigger = false
+                this.triggerUntilEscape()
             }
         }
     }
@@ -224,35 +216,24 @@ class Ghost{
 
         if(x){
             changeInAxis = "X"
-            this.changeInAxisDirection = true
-            this.getExpectedX()
         }else if(y){
             changeInAxis = "Y"
-            this.changeInAxisDirection = true
-            this.newYAxis = true
-            this.getExpectedY()
         }
+
+        if(changeInAxis)
+            this.changeInAxisDirectionFunction(changeInAxis)
     }
 
     changeInAxisDirectionFunction(axis){
-        let tryToMoveTo
-        switch(axis){
-            case "X":
-                (this.towardsX === "Left") ? tryToMoveTo = "Right" : tryToMoveTo = "Left"
-            break;
-            case "Y":
-                (this.towardsY === "Down") ? tryToMoveTo = "Up" : "Down"
-            break;
-        }
-
-        console.log(`Try to move to ${tryToMoveTo}`)
+        setTimeout(() => {
+            if(axis === "X"){
+                this.getExpectedX()
+            }else{
+                this.newYAxis = true
+                this.getExpectedY()
+            }
+        }, 2000)
     }
-
-    // movementListen(){
-    //     setTimeout(() => {
-    //         (this.expectedY === this.y) ? this.movementListen() : this.whereToGetExpecY()
-    //     }, 1000)
-    // }
 }
 
 function ghosts(){
