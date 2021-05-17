@@ -1,4 +1,4 @@
-var ghostContainer, currentGhostPosition, ghost1, stringTriggerMovement
+var ghostContainer, currentGhostPosition, ghost1, stringTriggerMovement, changeInAxis
 const posibleAxis = 4
 var movementTime = 0
 
@@ -118,36 +118,20 @@ class Ghost{
     moveTo(direction){
         switch(direction){
             case "Right":
-                movementTime += 2
-                if(movementTime >= 20){
-                    this.finishedMovementEffect(direction, true)
-                }else{
-                    this.movementEffect("X", direction)
-                }
+                movementTime += 2;
+                (movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("X", direction)
             break;
             case "Down":
-                movementTime += 2
-                if(movementTime >= 20){
-                    this.finishedMovementEffect(direction, true)
-                }else{
-                    this.movementEffect("Y", direction)
-                }
+                movementTime += 2;
+                (movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("Y", direction)
             break;
             case "Left":
-                movementTime -= 2
-                if(movementTime <= -20){
-                    this.finishedMovementEffect(direction, false)
-                }else{
-                    this.movementEffect("X", direction)
-                }
+                movementTime -= 2;
+                (movementTime <= -20) ? this.finishedMovementEffect(direction, false) : this.movementEffect("X", direction)
             break;
             case "Up":
-                movementTime -= 2
-                if(movementTime <= -20){
-                    this.finishedMovementEffect(direction, false)
-                }else{
-                    this.movementEffect("Y", direction)
-                }
+                movementTime -= 2;
+                (movementTime <= -20) ? this.finishedMovementEffect(direction, false) : this.movementEffect("Y", direction)
             break;
         }
     }
@@ -212,35 +196,63 @@ class Ghost{
 
         this.isANewExpectedAxisNecessary()
 
-        if(this.x != this.expectedX || this.y != this.expectedY){
-            if(!this.trigger){
-                this.posibleDirections()
-            }else{
-                this.trigger = false
-                this.triggerUntilEscape()
+        if(this.changeInAxisDirection){
+            this.changeInAxisDirectionFunction(changeInAxis)
+        }else{
+            if(this.x != this.expectedX || this.y != this.expectedY){
+                if(!this.trigger){
+                    this.posibleDirections()
+                }else{
+                    this.trigger = false
+                    this.triggerUntilEscape()
+                }
             }
         }
     }
 
     isANewExpectedAxisNecessary(){
+        let x, y
         if(this.towardsX === "Left" && this.x < this.expectedX){
-            this.getExpectedX()
+            x = true
         }else if(this.towardsX === "Right" && this.x > this.expectedX){
-            this.getExpectedX()
+            x = true
         }else if(this.towardsY === "Up" && this.y < this.expectedY){
-            this.newYAxis = true
-            this.getExpectedY()
+            y = true
         }else if(this.towardsY === "Down" && this.y > this.expectedY){
+            y = true
+        }
+
+        if(x){
+            changeInAxis = "X"
+            this.changeInAxisDirection = true
+            this.getExpectedX()
+        }else if(y){
+            changeInAxis = "Y"
+            this.changeInAxisDirection = true
             this.newYAxis = true
             this.getExpectedY()
         }
     }
 
-    movementListen(){
-        setTimeout(() => {
-            (this.expectedY === this.y) ? this.movementListen() : this.whereToGetExpecY()
-        }, 1000)
+    changeInAxisDirectionFunction(axis){
+        let tryToMoveTo
+        switch(axis){
+            case "X":
+                (this.towardsX === "Left") ? tryToMoveTo = "Right" : tryToMoveTo = "Left"
+            break;
+            case "Y":
+                (this.towardsY === "Down") ? tryToMoveTo = "Up" : "Down"
+            break;
+        }
+
+        console.log(`Try to move to ${tryToMoveTo}`)
     }
+
+    // movementListen(){
+    //     setTimeout(() => {
+    //         (this.expectedY === this.y) ? this.movementListen() : this.whereToGetExpecY()
+    //     }, 1000)
+    // }
 }
 
 function ghosts(){
