@@ -61,6 +61,23 @@ main{
 
     background-color: var(--insideColor);
 }
+.score{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 80px;
+    height: 20px;
+}
+.score, .score span{
+    font-size: 1.5rem;
+    color: white;
+}
+.score::before{
+    content: "Score: ";
+}
 .board-game{
     width: 100%;
     height: 460px;
@@ -94,11 +111,17 @@ main{
 
     z-index: 2;
 }
+.pacmanLive{
+    background-size: contain;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-image: url("./assets/pacman/pacmanPhoto.png");
+}
 .chocolate{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url("./assets/pacman/BALL-YELLOW-2T.png");
+    background-image: url("./assets/pacman/award.png");
 }
 
 @media (min-width: 510px) {

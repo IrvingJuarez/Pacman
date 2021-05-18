@@ -1,12 +1,15 @@
+var newGame
 const FIRST_VIEW = document.getElementById("firstView")
 const BOARD_GAME = document.getElementById("board-game")
 const BOARD_GAME_STYLES = document.getElementById("boardGameStyles")
 const ROWS = 23
 const CELLS = (window.innerWidth <= 509) ? 14 : 23
-var pacman
+const LIVES = 2
+var pacman, htmlScoreContainer
 
 class Game{
     constructor(){
+        this.score = 0
         this.jailBlocks = []
         this.grid()
         this.jail()
@@ -25,7 +28,23 @@ class Game{
             }
         }
 
+        this.printStatus()
         this.printGrid()
+    }
+
+    printStatus(){
+        for(let p = 0; p < LIVES; p++){
+            BOARD_GAME.childNodes[ROWS - 1].childNodes[p].classList.add("pacmanLive")
+        }
+
+        let divScore = document.createElement("div")
+        divScore.classList.add("score")
+        BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - 4].appendChild(divScore)
+
+        let htmlScore = document.createElement("span")
+        htmlScore.innerHTML = this.score
+        BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - 4].childNodes[0].appendChild(htmlScore)
+        htmlScoreContainer = BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - 4].childNodes[0].childNodes[0]
     }
 
     printGrid(){
@@ -83,6 +102,6 @@ class Game{
 }
 
 function startGame(){
-    const newGame = new Game()
+    newGame = new Game()
     FIRST_VIEW.style.display = "none"
 }
