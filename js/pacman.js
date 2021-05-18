@@ -1,3 +1,4 @@
+const TABLE = document.getElementById("table")
 var initialX = (window.innerWidth <= 509) ? 7 : 11
 var initialY = 12
 var yPortalAxis = (window.innerWidth <= 509) ? 12 : 11
@@ -28,13 +29,50 @@ class Pacman{
             this.keyboardCode = evt.keyCode
             this.comprobation(this.keyboardCode)
         })
+
+        TABLE.addEventListener("touchstart", evt => {
+            this.firstXTouch = evt.touches[0].screenX
+            this.firstYTouch = evt.touches[0].screenY
+        })
+
+        TABLE.addEventListener("touchend", evt => {
+            this.lastXTouch = evt.changedTouches[0].screenX
+            this.lastYTouch = evt.changedTouches[0].screenY
+
+            this.touchDirection()
+        })
+    }
+
+    touchDirection(){
+        let x, y, xDirection, yDirection
+        if(this.firstXTouch > this.lastXTouch){
+            x = this.firstXTouch - this.lastXTouch //Left
+            xDirection = "Left"
+        }else{
+            x = this.lastXTouch - this.firstXTouch //Right
+            xDirection = "Right"
+        }
+
+        if(this.firstYTouch < this.lastYTouch){
+            y = this.lastYTouch - this.firstYTouch //Down
+            yDirection = "Down"
+        }else{
+            y = this.firstYTouch - this.lastYTouch //Up
+            yDirection = "Up"
+        }
+
+        if(x > y){
+            console.log(xDirection)
+        }else{
+            console.log(yDirection)
+        }
     }
 
     comprobation(code){
         let expectedPacman
 
         if(this.process === false){
-            
+
             switch(code){
                 case 37: //Left
                     if(this.x - 1 < 0 && this.y === yPortalAxis){
@@ -56,7 +94,6 @@ class Pacman{
                     }
                 break;
                 case 39: //Right
-
                     if(this.x + 1 > CELLS - 1 && this.y === yPortalAxis){
                         expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
                         this.portal(code)
@@ -66,7 +103,6 @@ class Pacman{
                         expectedPacman = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
                         this.available(expectedPacman, code)
                     }
-
                 break;
                 case 40: //Down
                     if(this.y + 1 > 21){

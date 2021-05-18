@@ -1,16 +1,22 @@
 var ghostContainer, currentGhostPosition, ghost1, stringTriggerMovement, changeInAxis
 const posibleAxis = 4
 var movementTime = 0
+var ghostsArray = [
+    {
+        x: (window.innerWidth <= 509) ? 5 : 10,
+        y: 9
+    }
+]
 
 class Ghost{
-    constructor(){
-        this.x = (window.innerWidth <= 509) ? 6 : 10
-        this.y = 9
+    constructor(axisX, axisY){
+        this.x = axisX
+        this.y = axisY
         this.expectedY = pacman.y
         this.expectedX = pacman.x
         this.arrayPosibleDirections = []
         this.towardsX = null
-        this.display()
+        // this.display()
     }
 
     display(){
@@ -200,8 +206,7 @@ class Ghost{
                 this.triggerUntilEscape()
             }
         }else{
-            BOARD_GAME.childNodes[this.y].childNodes[this.x].removeChild(currentGhostPosition)
-            console.log(`Game over`)
+            this.gameOver()
         }
     }
 
@@ -237,8 +242,14 @@ class Ghost{
             }
         }, 2000)
     }
+
+    gameOver(){
+        console.log(`Game Over`)
+    }
 }
 
 function ghosts(){
-    ghost1 = new Ghost()
+    ghostsArray.map(ghost => {
+        ghost1 = new Ghost(ghost.x, ghost.y)
+    })
 }

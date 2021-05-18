@@ -94,6 +94,11 @@ main{
 
     z-index: 2;
 }
+.chocolate{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
 @media (min-width: 510px) {
     .table{
