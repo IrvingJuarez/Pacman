@@ -47,25 +47,23 @@ class Pacman{
         let x, y, xDirection, yDirection
         if(this.firstXTouch > this.lastXTouch){
             x = this.firstXTouch - this.lastXTouch //Left
-            xDirection = "Left"
+            xDirection = 37 //Left
         }else{
             x = this.lastXTouch - this.firstXTouch //Right
-            xDirection = "Right"
+            xDirection = 39 //Right
         }
 
         if(this.firstYTouch < this.lastYTouch){
             y = this.lastYTouch - this.firstYTouch //Down
-            yDirection = "Down"
+            yDirection = 40 //Down
         }else{
             y = this.firstYTouch - this.lastYTouch //Up
-            yDirection = "Up"
+            yDirection = 38 //Up
         }
 
-        if(x > y){
-            console.log(xDirection)
-        }else{
-            console.log(yDirection)
-        }
+        (x > y) ? this.keyboardCode = xDirection : this.keyboardCode = yDirection
+
+        this.comprobation(this.keyboardCode)
     }
 
     comprobation(code){

@@ -98,6 +98,7 @@ main{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-image: url("./assets/pacman/BALL-YELLOW-2T.png");
 }
 
 @media (min-width: 510px) {
