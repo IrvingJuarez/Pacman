@@ -36,7 +36,7 @@ class Game{
             BOARD_GAME_STYLES.href = "./css/desktopBoardGame.css"
         }
 
-        for(let i = 0; i < 22; i++){
+        for(let i = 0; i < ROWS - 1; i++){
             let currentRow = BOARD_GAME.childNodes[i]
             let currentArray = ROWS_ARRAY[i]
             
@@ -48,6 +48,9 @@ class Game{
                         currentCell.dataset.value = 1
                     }
                 }
+
+                if(currentCell.dataset.value != 1)
+                    currentCell.classList.add("chocolate")
             }
         }
     }

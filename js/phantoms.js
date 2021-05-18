@@ -1,12 +1,7 @@
 var ghostContainer, currentGhostPosition, ghost1, stringTriggerMovement, changeInAxis
 const posibleAxis = 4
 var movementTime = 0
-var ghostsArray = [
-    {
-        x: (window.innerWidth <= 509) ? 5 : 10,
-        y: 9
-    }
-]
+var ghostsArray = []
 
 class Ghost{
     constructor(axisX, axisY){
@@ -249,7 +244,5 @@ class Ghost{
 }
 
 function ghosts(){
-    ghostsArray.map(ghost => {
-        ghost1 = new Ghost(ghost.x, ghost.y)
-    })
+    ghost1 = new Ghost((window.innerWidth <= 509) ? 0 : 0, 0)
 }
