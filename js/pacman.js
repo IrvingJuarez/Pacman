@@ -145,114 +145,46 @@ class Pacman{
             case 37: //Left
                 currentClass = "pacmanLeft"
                 timeMovement -= 2;
-                (movementTime <= -20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("X", direction)
+                (timeMovement <= -20) ? this.stopMovement("X", false) : this.movementEffect(direction, "X")
             break;
             case 38: //Up
                 currentClass = "pacmanUp"
                 timeMovement -= 2;
-                (movementTime <= -20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("Y", direction)
-            break;
-            case 39: //Right
+                (timeMovement <= -20) ? this.stopMovement("Y", false) : this.movementEffect(direction, "Y")
+                break;
+                case 39: //Right
                 currentClass = "pacmanRight"
                 timeMovement += 2;
-                (movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("X", direction)
+                (timeMovement >= 20) ? this.stopMovement("X", true) : this.movementEffect(direction, "X")
             break;
             case 40: //Down
                 currentClass = "pacmanDown"
                 timeMovement += 2;
-                (movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("Y", direction)
+                (timeMovement >= 20) ? this.stopMovement("Y", true) : this.movementEffect(direction, "Y")
             break;
         }
 
         currentPacman.classList.add(currentClass)
     }
 
-    finishedMovementEffect(direction, value){
-        movementTime = 0
-        if(direction === 37 || direction === 39){
-            (value) ? this.x++ : this.x--
+    movementEffect(direction, axis){
+        setTimeout(() => {
+            currentPacman.style.transform = `translate${axis}(${timeMovement}px)`
+            this.move(direction)
+        }, 30)
+    }
+
+    stopMovement(axis, position){
+        timeMovement = 0
+        if(axis === "X"){
+            (position) ? this.x++ : this.x--
         }else{
-            (value) ? this.y++ : this.y--
+            (position) ? this.y++ : this.y--
         }
         this.changePosition()
         this.process = false
         this.comprobation(this.keyboardCode)
     }
-
-    movementEffect(axis, direction){
-        setTimeout(() => {
-            currentPacman.style.transform = `translate${axis}(${movementTime}px)`
-            this.move(direction)
-        }, 30)
-    }
-
-    // leftwards(){
-    //     timeMovement-=2
-
-    //     if(timeMovement <= -20){
-    //         timeMovement = 0
-    //         this.x--
-    //         this.changePosition()
-    //         this.process = false
-    //         this.comprobation(this.keyboardCode)
-    //     }else{
-    //         setTimeout(() => {
-    //             currentPacman.style.transform = `translateX(${timeMovement}px)`
-    //             this.leftwards()
-    //         }, 30)
-    //     }
-    // }
-
-    // rightwards(){
-    //     timeMovement+=2
-
-    //     if(timeMovement >= 20){
-    //         timeMovement = 0
-    //         this.x++
-    //         this.changePosition()
-    //         this.process = false
-    //         this.comprobation(this.keyboardCode)
-    //     }else{
-    //         setTimeout(() => {
-    //             currentPacman.style.transform = `translateX(${timeMovement}px)`
-    //             this.rightwards()
-    //         }, 30)
-    //     }
-    // }
-
-    // upwards(){
-    //     timeMovement-=2
-
-    //     if(timeMovement <= -20){
-    //         timeMovement = 0
-    //         this.y--
-    //         this.changePosition()
-    //         this.process = false
-    //         this.comprobation(this.keyboardCode)
-    //     }else{
-    //         setTimeout(() => {
-    //             currentPacman.style.transform = `translateY(${timeMovement}px)`
-    //             this.upwards()
-    //         }, 30)
-    //     }
-    // }
-
-    // downwards(){
-    //     timeMovement += 2
-
-    //     if(timeMovement >= 20){
-    //         timeMovement = 0
-    //         this.y++
-    //         this.changePosition()
-    //         this.process = false
-    //         this.comprobation(this.keyboardCode)
-    //     }else{
-    //         setTimeout(() => {
-    //             currentPacman.style.transform = `translateY(${timeMovement}px)`
-    //             this.downwards()
-    //         }, 30)
-    //     }
-    // }
 
     changePosition(){
         currentContainer.removeChild(currentPacman)
