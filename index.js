@@ -5,11 +5,11 @@ const BOARD_GAME = document.getElementById("board-game")
 const BOARD_GAME_STYLES = document.getElementById("boardGameStyles")
 const ROWS = 23
 const CELLS = (window.innerWidth <= 509) ? 14 : 23
-const LIVES = 2
 var pacman, currentClass, htmlScoreContainer
 
 class Game{
     constructor(){
+        this.lives = 2
         this.score = 0
         this.winScore = (window.innerWidth <= 509) ? 194 : 308
         this.jailBlocks = []
@@ -35,7 +35,7 @@ class Game{
     }
 
     printStatus(){
-        for(let p = 0; p < LIVES; p++){
+        for(let p = 0; p < this.lives; p++){
             BOARD_GAME.childNodes[ROWS - 1].childNodes[p].classList.add("pacmanLive")
         }
 
@@ -105,13 +105,14 @@ class Game{
     win(){
         this.pacmanStop = true
         this.score = 0
+        ghostContainer.removeChild(currentGhostPosition)
         
-        setTimeout(() => {
-            currentContainer.removeChild(currentPacman)
-            this.pacmanStop = false
-            this.refillGrid()
-            pacman = new Pacman()
-        }, 1000)
+        // setTimeout(() => {
+        //     currentContainer.removeChild(currentPacman)
+        //     this.pacmanStop = false
+        //     this.refillGrid()
+        //     pacman = new Pacman()
+        // }, 1000)
     }
 
     refillGrid(){

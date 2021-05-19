@@ -11,7 +11,7 @@ class Ghost{
         this.expectedX = pacman.x
         this.arrayPosibleDirections = []
         this.towardsX = null
-        // this.display()
+        this.display()
     }
 
     display(){
@@ -174,7 +174,8 @@ class Ghost{
         }else{
             (value) ? this.y++ : this.y--
         }
-        this.changePosition()
+        if(!newGame.pacmanStop)
+            this.changePosition()
     }
 
     movementEffect(axis, direction){
@@ -228,21 +229,28 @@ class Ghost{
     }
 
     changeInAxisDirectionFunction(axis){
-        setTimeout(() => {
-            if(axis === "X"){
-                this.getExpectedX()
-            }else{
-                this.newYAxis = true
-                this.getExpectedY()
-            }
-        }, 2000)
+        if(axis === "X"){
+            this.getExpectedX()
+        }else{
+            this.newYAxis = true
+            this.getExpectedY()
+        }
     }
 
     gameOver(){
-        console.log(`Game Over`)
+        newGame.pacmanStop = true
+        currentContainer.removeChild(currentPacman)
+
+        setTimeout(() => {
+            ghostContainer.removeChild(currentGhostPosition)
+            newGame.lives--
+            BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.remove("pacmanLive")
+            pacman = new Pacman()
+            ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9)
+        }, 2000)
     }
 }
 
 function ghosts(){
-    ghost1 = new Ghost((window.innerWidth <= 509) ? 0 : 0, 0)
+    ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9)
 }

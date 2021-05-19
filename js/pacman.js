@@ -6,12 +6,14 @@ var timeMovement = 0;
 
 class Pacman{
     constructor(){
+        this.oldKeyboardCode = 37
         currentClass = "pacmanLeft"
         this.x = initialX
         this.y = initialY
         this.process = false
         
         this.display()
+        this.comprobation(this.oldKeyboardCode)
         this.controls()
     }
 
@@ -25,8 +27,8 @@ class Pacman{
 
     controls(){
         document.addEventListener("keydown", evt => {
-            this.keyboardCode = evt.keyCode
-            this.comprobation(this.keyboardCode)
+            this.oldKeyboardCode = evt.keyCode
+            this.comprobation(this.oldKeyboardCode)
         })
 
         TABLE.addEventListener("touchstart", evt => {
@@ -60,9 +62,9 @@ class Pacman{
             yDirection = 38 //Up
         }
 
-        (x > y) ? this.keyboardCode = xDirection : this.keyboardCode = yDirection
+        (x > y) ? this.oldKeyboardCode = xDirection : this.oldKeyboardCode = yDirection
 
-        this.comprobation(this.keyboardCode)
+        this.comprobation(this.oldKeyboardCode)
     }
 
     comprobation(code){
@@ -130,11 +132,15 @@ class Pacman{
 
     available(expectedPosition, direction){
         if(expectedPosition != undefined){
-            if(expectedPosition.dataset.value != 1){
+            if(expectedPosition.dataset.value == 1){
+                if(this.keyboardCode != this.oldKeyboardCode){
+                    this.process = true
+                    this.move(this.keyboardCode)
+                }
+            }else{
+                this.keyboardCode = this.oldKeyboardCode
                 this.process = true
                 this.move(direction)
-            }else if(expectedPosition.dataset.value === 1){
-                console.log(`Hola`)
             }
         }
     }
@@ -144,24 +150,40 @@ class Pacman{
 
         switch(direction){
             case 37: //Left
-                currentClass = "pacmanLeft"
-                timeMovement -= 2;
-                (timeMovement <= -20) ? this.stopMovement("X", false) : this.movementEffect(direction, "X")
+                if(this.x - 1 >= 0){
+                    currentClass = "pacmanLeft"
+                    timeMovement -= 2;
+                    (timeMovement <= -20) ? this.stopMovement("X", false) : this.movementEffect(direction, "X")
+                }else{
+                    this.process = false
+                }
             break;
             case 38: //Up
-                currentClass = "pacmanUp"
-                timeMovement -= 2;
-                (timeMovement <= -20) ? this.stopMovement("Y", false) : this.movementEffect(direction, "Y")
-                break;
-                case 39: //Right
-                currentClass = "pacmanRight"
-                timeMovement += 2;
-                (timeMovement >= 20) ? this.stopMovement("X", true) : this.movementEffect(direction, "X")
+                if(this.y - 1 >= 0){
+                    currentClass = "pacmanUp"
+                    timeMovement -= 2;
+                    (timeMovement <= -20) ? this.stopMovement("Y", false) : this.movementEffect(direction, "Y")
+                }else{
+                    this.process = false
+                }
+            break;
+            case 39: //Right
+                if(this.x + 1 <= CELLS - 1){
+                    currentClass = "pacmanRight"
+                    timeMovement += 2;
+                    (timeMovement >= 20) ? this.stopMovement("X", true) : this.movementEffect(direction, "X")
+                }else{
+                    this.process = false
+                }
             break;
             case 40: //Down
-                currentClass = "pacmanDown"
-                timeMovement += 2;
-                (timeMovement >= 20) ? this.stopMovement("Y", true) : this.movementEffect(direction, "Y")
+                if(this.y + 1 <= 21){
+                    currentClass = "pacmanDown"
+                    timeMovement += 2;
+                    (timeMovement >= 20) ? this.stopMovement("Y", true) : this.movementEffect(direction, "Y")
+                }else{
+                    this.process = false
+                }
             break;
         }
 
@@ -171,7 +193,8 @@ class Pacman{
     movementEffect(direction, axis){
         setTimeout(() => {
             currentPacman.style.transform = `translate${axis}(${timeMovement}px)`
-            this.move(direction)
+            if(!newGame.pacmanStop)
+                this.move(direction)
         }, 30)
     }
 
@@ -184,7 +207,7 @@ class Pacman{
         }
         this.changePosition();
         (newGame.pacmanStop) ? this.process = true : this.process = false
-        this.comprobation(this.keyboardCode)
+        this.comprobation(this.oldKeyboardCode)
     }
 
     changePosition(){
