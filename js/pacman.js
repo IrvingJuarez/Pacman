@@ -1,8 +1,7 @@
-const TABLE = document.getElementById("table")
 var initialX = (window.innerWidth <= 509) ? 7 : 11
 var initialY = 12
 var yPortalAxis = (window.innerWidth <= 509) ? 12 : 11
-var currentPacman, currentClass, currentContainer;
+var currentPacman, currentContainer;
 var timeMovement = 0;
 
 class Pacman{
@@ -11,7 +10,7 @@ class Pacman{
         this.x = initialX
         this.y = initialY
         this.process = false
-
+        
         this.display()
         this.controls()
     }
@@ -134,6 +133,8 @@ class Pacman{
             if(expectedPosition.dataset.value != 1){
                 this.process = true
                 this.move(direction)
+            }else if(expectedPosition.dataset.value === 1){
+                console.log(`Hola`)
             }
         }
     }
@@ -181,8 +182,8 @@ class Pacman{
         }else{
             (position) ? this.y++ : this.y--
         }
-        this.changePosition()
-        this.process = false
+        this.changePosition();
+        (newGame.pacmanStop) ? this.process = true : this.process = false
         this.comprobation(this.keyboardCode)
     }
 
@@ -205,6 +206,9 @@ class Pacman{
             currentContainer.classList.remove("chocolate")
             newGame.score++
             htmlScoreContainer.innerHTML = newGame.score
+
+            if(newGame.score === newGame.winScore)
+                newGame.win()
         }
     }
 }
