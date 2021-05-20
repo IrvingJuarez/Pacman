@@ -13,7 +13,7 @@ class Pacman{
         this.process = false
         
         this.display()
-        this.comprobation(this.oldKeyboardCode)
+        this.comprobation(this.oldKeyboardCode);
         this.controls()
     }
 
@@ -151,36 +151,52 @@ class Pacman{
         switch(direction){
             case 37: //Left
                 if(this.x - 1 >= 0){
-                    currentClass = "pacmanLeft"
-                    timeMovement -= 2;
-                    (timeMovement <= -20) ? this.stopMovement("X", false) : this.movementEffect(direction, "X")
+                    if(BOARD_GAME.childNodes[this.y].childNodes[this.x - 1].dataset.value == 1){
+                        this.process = false
+                    }else{
+                        currentClass = "pacmanLeft"
+                        timeMovement -= 2;
+                        (timeMovement <= -20) ? this.stopMovement("X", false) : this.movementEffect(direction, "X")
+                    }
                 }else{
                     this.process = false
                 }
             break;
             case 38: //Up
                 if(this.y - 1 >= 0){
-                    currentClass = "pacmanUp"
-                    timeMovement -= 2;
-                    (timeMovement <= -20) ? this.stopMovement("Y", false) : this.movementEffect(direction, "Y")
+                    if(BOARD_GAME.childNodes[this.y - 1].childNodes[this.x].dataset.value == 1){
+                        this.process = false
+                    }else{
+                        currentClass = "pacmanUp"
+                        timeMovement -= 2;
+                        (timeMovement <= -20) ? this.stopMovement("Y", false) : this.movementEffect(direction, "Y")
+                    }
                 }else{
                     this.process = false
                 }
             break;
             case 39: //Right
                 if(this.x + 1 <= CELLS - 1){
-                    currentClass = "pacmanRight"
-                    timeMovement += 2;
-                    (timeMovement >= 20) ? this.stopMovement("X", true) : this.movementEffect(direction, "X")
+                    if(BOARD_GAME.childNodes[this.y].childNodes[this.x + 1].dataset.value == 1){
+                        this.process = false    
+                    }else{
+                        currentClass = "pacmanRight"
+                        timeMovement += 2;
+                        (timeMovement >= 20) ? this.stopMovement("X", true) : this.movementEffect(direction, "X")
+                    }
                 }else{
                     this.process = false
                 }
             break;
             case 40: //Down
                 if(this.y + 1 <= 21){
-                    currentClass = "pacmanDown"
-                    timeMovement += 2;
-                    (timeMovement >= 20) ? this.stopMovement("Y", true) : this.movementEffect(direction, "Y")
+                    if(BOARD_GAME.childNodes[this.y + 1].childNodes[this.x].dataset.value == 1){
+                        this.process = false    
+                    }else{
+                        currentClass = "pacmanDown"
+                        timeMovement += 2;
+                        (timeMovement >= 20) ? this.stopMovement("Y", true) : this.movementEffect(direction, "Y")
+                    }
                 }else{
                     this.process = false
                 }

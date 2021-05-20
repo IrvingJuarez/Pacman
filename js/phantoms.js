@@ -240,13 +240,24 @@ class Ghost{
     gameOver(){
         newGame.pacmanStop = true
         currentContainer.removeChild(currentPacman)
-
+        
         setTimeout(() => {
-            ghostContainer.removeChild(currentGhostPosition)
             newGame.lives--
-            BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.remove("pacmanLive")
-            pacman = new Pacman()
-            ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9)
+            if(newGame.lives >= 0){
+                currentContainer.appendChild(currentPacman)
+                ghostContainer.removeChild(currentGhostPosition)
+                newGame.pacmanStop = false
+                BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.remove("pacmanLive")
+                ghosts()
+                pacman.oldKeyboardCode = 37
+                pacman.process = false
+                pacman.y = initialY
+                pacman.x = initialX
+                pacman.changePosition()
+                pacman.comprobation(pacman.oldKeyboardCode)
+            }else{
+                location.reload()
+            }
         }, 2000)
     }
 }

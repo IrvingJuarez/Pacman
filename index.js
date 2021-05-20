@@ -107,12 +107,13 @@ class Game{
         this.score = 0
         ghostContainer.removeChild(currentGhostPosition)
         
-        // setTimeout(() => {
-        //     currentContainer.removeChild(currentPacman)
-        //     this.pacmanStop = false
-        //     this.refillGrid()
-        //     pacman = new Pacman()
-        // }, 1000)
+        setTimeout(() => {
+            currentContainer.removeChild(currentPacman)
+            this.pacmanStop = false
+            this.refillGrid()
+            pacman = new Pacman()
+            ghosts()
+        }, 1000)
     }
 
     refillGrid(){
