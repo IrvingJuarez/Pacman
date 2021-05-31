@@ -194,16 +194,7 @@ class Ghost{
 
         this.isANewExpectedAxisNecessary()
         
-        if(this.x != this.expectedX || this.y != this.expectedY){
-            if(!this.trigger){
-                this.posibleDirections()
-            }else{
-                this.trigger = false
-                this.triggerUntilEscape()
-            }
-        }else{
-            this.gameOver()
-        }
+        this.noBiases()
     }
 
     isANewExpectedAxisNecessary(){
@@ -224,8 +215,58 @@ class Ghost{
             changeInAxis = "Y"
         }
 
-        if(changeInAxis)
-            this.changeInAxisDirectionFunction(changeInAxis)
+        if(changeInAxis){
+            setTimeout(() => {
+                this.changeInAxisDirectionFunction(changeInAxis)
+            }, 250)
+        }
+    }
+
+    noBiases(){
+        if(this.towardsX === "Right" && this.x >= this.expectedX){
+            if(this.towardsY === "Up" && this.y <= this.expectedY){
+                this.gameOver()
+            }else if(this.towardsY === "Down" && this.y >= this.expectedY){
+                this.gameOver()
+            }else{
+                this.triggerDecision()
+            }
+        }else if(this.towardsX === "Left" && this.x <= this.expectedX){
+            if(this.towardsY === "Down" && this.y >= this.expectedY){
+                this.gameOver()
+            }else if(this.towardsY === "Up" && this.y <= this.expectedY){
+                this.gameOver()
+            }else{
+                this.triggerDecision()
+            }
+        }else if(this.towardsY === "Down" && this.y >= this.expectedY){
+            if(this.towardsX === "Right" && this.x >= this.expectedX){
+                this.gameOver()
+            }else if(this.towardsX === "Left" && this.x <= this.expectedX){
+                this.gameOver()
+            }else{
+                this.triggerDecision()
+            }
+        }else if(this.towardsY === "Up" && this.y <= this.expectedY){
+            if(this.towardsX === "Right" && this.x >= this.expectedX){
+                this.gameOver()
+            }else if(this.towardsX === "Left" && this.x <= this.expectedX){
+                this.gameOver()
+            }else{
+                this.triggerDecision()
+            }
+        }else{
+            this.triggerDecision()
+        }
+    }
+    
+    triggerDecision(){
+        if(!this.trigger){
+            this.posibleDirections()
+        }else{
+            this.trigger = false
+            this.triggerUntilEscape()
+        }
     }
 
     changeInAxisDirectionFunction(axis){
