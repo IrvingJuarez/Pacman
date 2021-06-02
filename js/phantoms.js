@@ -115,18 +115,22 @@ class Ghost{
     moveTo(direction){
         switch(direction){
             case "Right":
+                this.axisDirection = "X"
                 movementTime += 2;
                 (movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("X", direction)
             break;
             case "Down":
+                this.axisDirection = "Y"
                 movementTime += 2;
                 (movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("Y", direction)
             break;
             case "Left":
+                this.axisDirection = "X"
                 movementTime -= 2;
                 (movementTime <= -20) ? this.finishedMovementEffect(direction, false) : this.movementEffect("X", direction)
             break;
             case "Up":
+                this.axisDirection = "Y"
                 movementTime -= 2;
                 (movementTime <= -20) ? this.finishedMovementEffect(direction, false) : this.movementEffect("Y", direction)
             break;
@@ -218,46 +222,53 @@ class Ghost{
         if(changeInAxis){
             setTimeout(() => {
                 this.changeInAxisDirectionFunction(changeInAxis)
-            }, 250)
+            }, 0)
         }
     }
 
     noBiases(){
-        if(this.towardsX === "Right" && this.x >= this.expectedX){
-            if(this.towardsY === "Up" && this.y <= this.expectedY){
-                this.gameOver()
-            }else if(this.towardsY === "Down" && this.y >= this.expectedY){
-                this.gameOver()
+        if(this.axisDirection === "X"){
+            if(this.towardsX === "Right" && this.x >= this.expectedX){
+                if(this.towardsY === "Up" && this.y <= this.expectedY){
+                    this.gameOver()
+                }else if(this.towardsY === "Down" && this.y >= this.expectedY){
+                    this.gameOver()
+                }else{
+                    this.triggerDecision()
+                }
+            }else if(this.towardsX === "Left" && this.x <= this.expectedX){
+                if(this.towardsY === "Down" && this.y >= this.expectedY){
+                    this.gameOver()
+                }else if(this.towardsY === "Up" && this.y <= this.expectedY){
+                    this.gameOver()
+                }else{
+                    this.triggerDecision()
+                }
             }else{
                 this.triggerDecision()
             }
-        }else if(this.towardsX === "Left" && this.x <= this.expectedX){
+        }else if(this.axisDirection === "Y"){
             if(this.towardsY === "Down" && this.y >= this.expectedY){
-                this.gameOver()
+                if(this.towardsX === "Right" && this.x >= this.expectedX){
+                    this.gameOver()
+                }else if(this.towardsX === "Left" && this.x <= this.expectedX){
+                    this.gameOver()
+                }else{
+                    this.triggerDecision()
+                }
             }else if(this.towardsY === "Up" && this.y <= this.expectedY){
-                this.gameOver()
+                if(this.towardsX === "Right" && this.x >= this.expectedX){
+                    this.gameOver()
+                }else if(this.towardsX === "Left" && this.x <= this.expectedX){
+                    this.gameOver()
+                }else{
+                    this.triggerDecision()
+                }
             }else{
                 this.triggerDecision()
             }
-        }else if(this.towardsY === "Down" && this.y >= this.expectedY){
-            if(this.towardsX === "Right" && this.x >= this.expectedX){
-                this.gameOver()
-            }else if(this.towardsX === "Left" && this.x <= this.expectedX){
-                this.gameOver()
-            }else{
-                this.triggerDecision()
-            }
-        }else if(this.towardsY === "Up" && this.y <= this.expectedY){
-            if(this.towardsX === "Right" && this.x >= this.expectedX){
-                this.gameOver()
-            }else if(this.towardsX === "Left" && this.x <= this.expectedX){
-                this.gameOver()
-            }else{
-                this.triggerDecision()
-            }
-        }else{
-            this.triggerDecision()
         }
+        
     }
     
     triggerDecision(){
@@ -289,11 +300,11 @@ class Ghost{
                 ghostContainer.removeChild(currentGhostPosition)
                 newGame.pacmanStop = false
                 BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.remove("pacmanLive")
-                ghosts()
                 pacman.oldKeyboardCode = 37
                 pacman.process = false
                 pacman.y = initialY
                 pacman.x = initialX
+                ghosts()
                 pacman.changePosition()
                 pacman.comprobation(pacman.oldKeyboardCode)
             }else{
