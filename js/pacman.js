@@ -108,6 +108,12 @@ class Pacman{
     }
 
     portal(dir){
+        if(ghost1.towardsX === "Right"){
+            ghost1.towardsX = "Left"
+        }else if(ghost1.towardsX === "Left"){
+            ghost1.towardsX = "Right"
+        }
+        
         this.keyboardCode = dir
 
         switch(dir){

@@ -4,7 +4,8 @@ var movementTime = 0
 var ghostsArray = []
 
 class Ghost{
-    constructor(axisX, axisY){
+    constructor(axisX, axisY, num){
+        this.number = num
         this.x = axisX
         this.y = axisY
         this.expectedY = pacman.y
@@ -17,7 +18,7 @@ class Ghost{
     display(){
         ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
         currentGhostPosition = document.createElement("div")
-        currentGhostPosition.classList.add("ghost")
+        currentGhostPosition.classList.add(`ghost${this.number}`)
         ghostContainer.appendChild(currentGhostPosition)
 
         this.getExpectedX()
@@ -315,5 +316,5 @@ class Ghost{
 }
 
 function ghosts(){
-    ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9)
+    ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
 }

@@ -97,7 +97,7 @@ main{
 .portalRight{
     box-shadow: 5px 0px 5px blue;
 }
-.ghost{
+.ghost1{
     position: absolute;
     left: calc(50% - 9px);
     top: calc(50% - 9px);
@@ -105,6 +105,20 @@ main{
     height: 18px;
 
     background-image: url("./assets/ghosts/ghost.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    z-index: 2;
+}
+.ghost2{
+    position: absolute;
+    left: calc(50% - 9px);
+    top: calc(50% - 9px);
+    width: 18px;
+    height: 18px;
+
+    background-image: url("./assets/ghosts/ghost_orange.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
