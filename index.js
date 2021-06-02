@@ -106,16 +106,18 @@ class Game{
         this.pacmanStop = true
         this.score = 0
         ghostsArray.forEach(item => {
-            console.log(BOARD_GAME.childNodes[item.y].childNodes[item.x])
+            item.ghostContainer = BOARD_GAME.childNodes[item.y].childNodes[item.x]
+            item.ghostContainer.removeChild(item.ghostContainer.childNodes[0])
         })
         
-        // setTimeout(() => {
-        //     currentContainer.removeChild(currentPacman)
-        //     this.pacmanStop = false
-        //     this.refillGrid()
-        //     pacman = new Pacman()
-        //     ghosts()
-        // }, 1000)
+        setTimeout(() => {
+            ghostsArray = []
+            currentContainer.removeChild(currentPacman)
+            this.pacmanStop = false
+            this.refillGrid()
+            pacman = new Pacman()
+            ghosts()
+        }, 1000)
     }
 
     refillGrid(){

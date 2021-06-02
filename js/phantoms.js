@@ -1,4 +1,3 @@
-var currentGhostPosition, ghost1, stringTriggerMovement, changeInAxis
 const posibleAxis = 4
 var movementTime = 0
 var ghostsArray = []
@@ -18,9 +17,9 @@ class Ghost{
 
     display(){
         this.ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
-        currentGhostPosition = document.createElement("div")
-        currentGhostPosition.classList.add(`ghost${this.number}`)
-        this.ghostContainer.appendChild(currentGhostPosition)
+        this.currentGhostPosition = document.createElement("div")
+        this.currentGhostPosition.classList.add(`ghost${this.number}`)
+        this.ghostContainer.appendChild(this.currentGhostPosition)
 
         this.getExpectedX()
         this.getExpectedY()
@@ -146,29 +145,29 @@ class Ghost{
         }else{
             if(this.triggerSecondTime){
                 let axisComprobation
-                (stringTriggerMovement === "Down" || stringTriggerMovement === "Up") ? axisComprobation = this.towardsX : axisComprobation = this.towardsY
+                (this.stringTriggerMovement === "Down" || this.stringTriggerMovement === "Up") ? axisComprobation = this.towardsX : axisComprobation = this.towardsY
 
                 if(this.arrayPosibleDirections.includes(axisComprobation)){
                     this.trigger = false
                     this.triggerSecondTime = false
                     this.moveTo(axisComprobation)
                 }else{
-                    this.moveTo(stringTriggerMovement)
+                    this.moveTo(this.stringTriggerMovement)
                 }
             }else{
                 let triggerMovement = Math.floor(Math.random() * this.arrayPosibleDirections.length)
-                stringTriggerMovement = this.arrayPosibleDirections[triggerMovement]
+                this.stringTriggerMovement = this.arrayPosibleDirections[triggerMovement]
 
                 if(this.x === CELLS - 1){
-                    stringTriggerMovement = "Left"
+                    this.stringTriggerMovement = "Left"
                 }else if(this.x === 0){
-                    stringTriggerMovement = "Right"
+                    this.stringTriggerMovement = "Right"
                 }else if(this.y === 0){
-                    stringTriggerMovement = "Down"
+                    this.stringTriggerMovement = "Down"
                 }else if(this.y === 21){
-                    stringTriggerMovement = "Up"
+                    this.stringTriggerMovement = "Up"
                 }
-                this.moveTo(stringTriggerMovement)
+                this.moveTo(this.stringTriggerMovement)
             }
         }
     }
@@ -186,7 +185,7 @@ class Ghost{
 
     movementEffect(axis, direction){
         setTimeout(() => {
-            currentGhostPosition.style.transform = `translate${axis}(${movementTime}px)`
+            this.currentGhostPosition.style.transform = `translate${axis}(${movementTime}px)`
             this.moveTo(direction)
         }, 30)
     }
@@ -195,10 +194,10 @@ class Ghost{
         this.expectedY = pacman.y
         this.expectedX = pacman.x
 
-        this.ghostContainer.removeChild(currentGhostPosition)
+        this.ghostContainer.removeChild(this.currentGhostPosition)
         this.ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
-        currentGhostPosition.style.transform = `none`
-        this.ghostContainer.appendChild(currentGhostPosition)
+        this.currentGhostPosition.style.transform = `none`
+        this.ghostContainer.appendChild(this.currentGhostPosition)
         this.arrayPosibleDirections = []
 
         this.isANewExpectedAxisNecessary()
@@ -300,13 +299,14 @@ class Ghost{
             newGame.lives--
             if(newGame.lives >= 0){
                 currentContainer.appendChild(currentPacman)
-                this.ghostContainer.removeChild(currentGhostPosition)
+                this.ghostContainer.removeChild(this.currentGhostPosition)
                 newGame.pacmanStop = false
                 BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.remove("pacmanLive")
                 pacman.oldKeyboardCode = 37
                 pacman.process = false
                 pacman.y = initialY
                 pacman.x = initialX
+                ghostsArray = []
                 ghosts()
                 pacman.changePosition()
                 pacman.comprobation(pacman.oldKeyboardCode)
@@ -318,9 +318,6 @@ class Ghost{
 }
 
 function ghosts(){
-    ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
-
-    // setTimeout(() => {
-    //     ghost2 = new Ghost(11, 5, 2)
-    // }, 5000)
+    var ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
+    var ghost2 = new Ghost(11, 5, 2)
 }

@@ -251,8 +251,9 @@ class Pacman{
             newGame.score++
             htmlScoreContainer.innerHTML = newGame.score
 
-            if(newGame.score === newGame.winScore)
+            if(newGame.score === newGame.winScore){
                 newGame.win()
+            }
         }
     }
 }
