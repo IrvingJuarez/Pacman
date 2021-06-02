@@ -1,4 +1,4 @@
-var ghostContainer, currentGhostPosition, ghost1, stringTriggerMovement, changeInAxis
+var currentGhostPosition, ghost1, stringTriggerMovement, changeInAxis
 const posibleAxis = 4
 var movementTime = 0
 var ghostsArray = []
@@ -17,10 +17,10 @@ class Ghost{
     }
 
     display(){
-        ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
+        this.ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
         currentGhostPosition = document.createElement("div")
         currentGhostPosition.classList.add(`ghost${this.number}`)
-        ghostContainer.appendChild(currentGhostPosition)
+        this.ghostContainer.appendChild(currentGhostPosition)
 
         this.getExpectedX()
         this.getExpectedY()
@@ -195,10 +195,10 @@ class Ghost{
         this.expectedY = pacman.y
         this.expectedX = pacman.x
 
-        ghostContainer.removeChild(currentGhostPosition)
-        ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
+        this.ghostContainer.removeChild(currentGhostPosition)
+        this.ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
         currentGhostPosition.style.transform = `none`
-        ghostContainer.appendChild(currentGhostPosition)
+        this.ghostContainer.appendChild(currentGhostPosition)
         this.arrayPosibleDirections = []
 
         this.isANewExpectedAxisNecessary()
@@ -300,7 +300,7 @@ class Ghost{
             newGame.lives--
             if(newGame.lives >= 0){
                 currentContainer.appendChild(currentPacman)
-                ghostContainer.removeChild(currentGhostPosition)
+                this.ghostContainer.removeChild(currentGhostPosition)
                 newGame.pacmanStop = false
                 BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.remove("pacmanLive")
                 pacman.oldKeyboardCode = 37
@@ -319,5 +319,8 @@ class Ghost{
 
 function ghosts(){
     ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
-    // ghost2 = new Ghost(11, 5, 2)
+
+    // setTimeout(() => {
+    //     ghost2 = new Ghost(11, 5, 2)
+    // }, 5000)
 }

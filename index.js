@@ -105,15 +105,17 @@ class Game{
     win(){
         this.pacmanStop = true
         this.score = 0
-        ghostContainer.removeChild(currentGhostPosition)
+        ghostsArray.forEach(item => {
+            console.log(BOARD_GAME.childNodes[item.y].childNodes[item.x])
+        })
         
-        setTimeout(() => {
-            currentContainer.removeChild(currentPacman)
-            this.pacmanStop = false
-            this.refillGrid()
-            pacman = new Pacman()
-            ghosts()
-        }, 1000)
+        // setTimeout(() => {
+        //     currentContainer.removeChild(currentPacman)
+        //     this.pacmanStop = false
+        //     this.refillGrid()
+        //     pacman = new Pacman()
+        //     ghosts()
+        // }, 1000)
     }
 
     refillGrid(){
