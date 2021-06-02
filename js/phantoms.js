@@ -12,6 +12,7 @@ class Ghost{
         this.expectedX = pacman.x
         this.arrayPosibleDirections = []
         this.towardsX = null
+        ghostsArray.push(this)
         this.display()
     }
 
@@ -191,6 +192,9 @@ class Ghost{
     }
 
     changePosition(){
+        this.expectedY = pacman.y
+        this.expectedX = pacman.x
+
         ghostContainer.removeChild(currentGhostPosition)
         ghostContainer = BOARD_GAME.childNodes[this.y].childNodes[this.x]
         currentGhostPosition.style.transform = `none`
@@ -198,7 +202,6 @@ class Ghost{
         this.arrayPosibleDirections = []
 
         this.isANewExpectedAxisNecessary()
-        
         this.noBiases()
     }
 
@@ -208,22 +211,21 @@ class Ghost{
             x = true
         }else if(this.towardsX === "Right" && this.x > this.expectedX){
             x = true
-        }else if(this.towardsY === "Up" && this.y < this.expectedY){
+        }
+        
+        if(this.towardsY === "Up" && this.y < this.expectedY){
             y = true
         }else if(this.towardsY === "Down" && this.y > this.expectedY){
             y = true
         }
 
-        if(x){
-            changeInAxis = "X"
+        if(x & y){
+            this.changeInAxisDirectionFunction("X")
+            this.changeInAxisDirectionFunction("Y")
+        }else if(x){
+            this.changeInAxisDirectionFunction("X")
         }else if(y){
-            changeInAxis = "Y"
-        }
-
-        if(changeInAxis){
-            setTimeout(() => {
-                this.changeInAxisDirectionFunction(changeInAxis)
-            }, 0)
+            this.changeInAxisDirectionFunction("Y")
         }
     }
 
@@ -317,4 +319,5 @@ class Ghost{
 
 function ghosts(){
     ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
+    // ghost2 = new Ghost(11, 5, 2)
 }

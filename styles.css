@@ -88,6 +88,7 @@ main{
     height: 20px;
 }
 .cell{
+    position: relative;
     width: 20px;
     height: 100%;
 }
@@ -123,7 +124,7 @@ main{
     background-size: cover;
     background-repeat: no-repeat;
 
-    z-index: 2;
+    z-index: 3;
 }
 .pacmanLive{
     background-size: contain;

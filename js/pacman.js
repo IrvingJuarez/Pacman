@@ -108,12 +108,14 @@ class Pacman{
     }
 
     portal(dir){
-        if(ghost1.towardsX === "Right"){
-            ghost1.towardsX = "Left"
-        }else if(ghost1.towardsX === "Left"){
-            ghost1.towardsX = "Right"
-        }
-        
+        ghostsArray.forEach(ghost => {
+            if(ghost.towardsX === "Right"){
+                ghost.towardsX = "Left"
+            }else if(ghost.towardsX === "Left"){
+                ghost.towardsX = "Right"
+            }
+        })
+
         this.keyboardCode = dir
 
         switch(dir){
@@ -239,9 +241,6 @@ class Pacman{
         currentPacman.style.transform = "none"
         currentContainer.appendChild(currentPacman)
         currentPacman.classList.add(currentClass)
-
-        ghost1.expectedY = this.y
-        ghost1.expectedX = this.x
 
         this.awardsEaten(currentContainer)
     }
