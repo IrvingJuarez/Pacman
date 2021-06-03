@@ -120,6 +120,34 @@ class Game{
         }, 1000)
     }
 
+    gameOver(){
+        this.pacmanStop = true
+        currentContainer.removeChild(currentPacman)
+
+        setTimeout(() => {
+            this.lives--
+
+            if(this.lives >= 0){
+                currentContainer.appendChild(currentPacman)
+                ghostsArray.forEach(item => {
+                    item.ghostContainer.removeChild(item.ghostContainer.childNodes[0])
+                })
+                newGame.pacmanStop = false
+                BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.remove("pacmanLive")
+                pacman.oldKeyboardCode = 37
+                pacman.process = false
+                pacman.y = initialY
+                pacman.x = initialX
+                ghostsArray = []
+                ghosts()
+                pacman.changePosition()
+                pacman.comprobation(pacman.oldKeyboardCode)
+            }else{
+                location.reload()
+            }
+        }, 3000)
+    }
+
     refillGrid(){
         for(let i = 0; i < ROWS - 1; i++){
             let currentRow = BOARD_GAME.childNodes[i]

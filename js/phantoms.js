@@ -1,9 +1,9 @@
 const posibleAxis = 4
-var movementTime = 0
 var ghostsArray = []
 
 class Ghost{
     constructor(axisX, axisY, num){
+        this.movementTime = 0
         this.number = num
         this.x = axisX
         this.y = axisY
@@ -76,6 +76,7 @@ class Ghost{
             }
         }
 
+
         if(this.trigger){
             this.triggerSecondTime = true
             this.triggerUntilEscape()
@@ -117,23 +118,23 @@ class Ghost{
         switch(direction){
             case "Right":
                 this.axisDirection = "X"
-                movementTime += 2;
-                (movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("X", direction)
+                this.movementTime += 2;
+                (this.movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("X", direction)
             break;
             case "Down":
                 this.axisDirection = "Y"
-                movementTime += 2;
-                (movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("Y", direction)
+                this.movementTime += 2;
+                (this.movementTime >= 20) ? this.finishedMovementEffect(direction, true) : this.movementEffect("Y", direction)
             break;
             case "Left":
                 this.axisDirection = "X"
-                movementTime -= 2;
-                (movementTime <= -20) ? this.finishedMovementEffect(direction, false) : this.movementEffect("X", direction)
+                this.movementTime -= 2;
+                (this.movementTime <= -20) ? this.finishedMovementEffect(direction, false) : this.movementEffect("X", direction)
             break;
             case "Up":
                 this.axisDirection = "Y"
-                movementTime -= 2;
-                (movementTime <= -20) ? this.finishedMovementEffect(direction, false) : this.movementEffect("Y", direction)
+                this.movementTime -= 2;
+                (this.movementTime <= -20) ? this.finishedMovementEffect(direction, false) : this.movementEffect("Y", direction)
             break;
         }
     }
@@ -173,7 +174,7 @@ class Ghost{
     }
 
     finishedMovementEffect(direction, value){
-        movementTime = 0
+        this.movementTime = 0
         if(direction === "Right" || direction === "Left"){
             (value) ? this.x++ : this.x--
         }else{
@@ -185,7 +186,7 @@ class Ghost{
 
     movementEffect(axis, direction){
         setTimeout(() => {
-            this.currentGhostPosition.style.transform = `translate${axis}(${movementTime}px)`
+            this.currentGhostPosition.style.transform = `translate${axis}(${this.movementTime}px)`
             this.moveTo(direction)
         }, 30)
     }
@@ -232,17 +233,17 @@ class Ghost{
         if(this.axisDirection === "X"){
             if(this.towardsX === "Right" && this.x >= this.expectedX){
                 if(this.towardsY === "Up" && this.y <= this.expectedY){
-                    this.gameOver()
+                    newGame.gameOver()
                 }else if(this.towardsY === "Down" && this.y >= this.expectedY){
-                    this.gameOver()
+                    newGame.gameOver()
                 }else{
                     this.triggerDecision()
                 }
             }else if(this.towardsX === "Left" && this.x <= this.expectedX){
                 if(this.towardsY === "Down" && this.y >= this.expectedY){
-                    this.gameOver()
+                    newGame.gameOver()
                 }else if(this.towardsY === "Up" && this.y <= this.expectedY){
-                    this.gameOver()
+                    newGame.gameOver()
                 }else{
                     this.triggerDecision()
                 }
@@ -252,17 +253,17 @@ class Ghost{
         }else if(this.axisDirection === "Y"){
             if(this.towardsY === "Down" && this.y >= this.expectedY){
                 if(this.towardsX === "Right" && this.x >= this.expectedX){
-                    this.gameOver()
+                    newGame.gameOver()
                 }else if(this.towardsX === "Left" && this.x <= this.expectedX){
-                    this.gameOver()
+                    newGame.gameOver()
                 }else{
                     this.triggerDecision()
                 }
             }else if(this.towardsY === "Up" && this.y <= this.expectedY){
                 if(this.towardsX === "Right" && this.x >= this.expectedX){
-                    this.gameOver()
+                    newGame.gameOver()
                 }else if(this.towardsX === "Left" && this.x <= this.expectedX){
-                    this.gameOver()
+                    newGame.gameOver()
                 }else{
                     this.triggerDecision()
                 }
@@ -289,31 +290,6 @@ class Ghost{
             this.newYAxis = true
             this.getExpectedY()
         }
-    }
-
-    gameOver(){
-        newGame.pacmanStop = true
-        currentContainer.removeChild(currentPacman)
-        
-        setTimeout(() => {
-            newGame.lives--
-            if(newGame.lives >= 0){
-                currentContainer.appendChild(currentPacman)
-                this.ghostContainer.removeChild(this.currentGhostPosition)
-                newGame.pacmanStop = false
-                BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.remove("pacmanLive")
-                pacman.oldKeyboardCode = 37
-                pacman.process = false
-                pacman.y = initialY
-                pacman.x = initialX
-                ghostsArray = []
-                ghosts()
-                pacman.changePosition()
-                pacman.comprobation(pacman.oldKeyboardCode)
-            }else{
-                location.reload()
-            }
-        }, 2000)
     }
 }
 
