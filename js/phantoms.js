@@ -203,6 +203,20 @@ class Ghost{
 
         this.isANewExpectedAxisNecessary()
         this.noBiases()
+
+        if(this.ghostContainer.childNodes[1]){
+            this.plusOneGhost = true
+        }else{
+            this.plusOneGhost = false
+        }
+        
+        if(this.plusOneGhost === true){
+            this.ghostContainer.childNodes[1].style.zIndex = -1;
+        }else{
+            ghostsArray.forEach(item => {
+                item.ghostContainer.childNodes[0].style.zIndex = 0
+            })
+        }
     }
 
     isANewExpectedAxisNecessary(){
