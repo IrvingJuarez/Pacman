@@ -5,10 +5,13 @@ const BOARD_GAME = document.getElementById("board-game")
 const BOARD_GAME_STYLES = document.getElementById("boardGameStyles")
 const ROWS = 23
 const CELLS = (window.innerWidth <= 509) ? 14 : 23
-var pacman, currentClass, htmlScoreContainer
+const SCORE_DIV_POSITION = 3
+const LEVEL_DIV_POSITION = 7
+var pacman, currentClass, htmlScoreContainer, htmlLevelContainer
 
 class Game{
     constructor(){
+        this.level = 1
         this.lives = 2
         this.score = 0
         this.winScore = (window.innerWidth <= 509) ? 194 : 308
@@ -41,12 +44,21 @@ class Game{
 
         let divScore = document.createElement("div")
         divScore.classList.add("score")
-        BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - 4].appendChild(divScore)
+        BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - SCORE_DIV_POSITION].appendChild(divScore)
 
         let htmlScore = document.createElement("span")
         htmlScore.innerHTML = this.score
-        BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - 4].childNodes[0].appendChild(htmlScore)
-        htmlScoreContainer = BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - 4].childNodes[0].childNodes[0]
+        BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - SCORE_DIV_POSITION].childNodes[0].appendChild(htmlScore)
+        htmlScoreContainer = BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - SCORE_DIV_POSITION].childNodes[0].childNodes[0]
+
+        let divLevel = document.createElement("div")
+        divLevel.classList.add("level")
+        BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - LEVEL_DIV_POSITION].appendChild(divLevel)
+
+        let htmlLevel = document.createElement("span")
+        htmlLevel.innerHTML = this.level
+        BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - LEVEL_DIV_POSITION].childNodes[0].appendChild(htmlLevel)
+        htmlLevelContainer = BOARD_GAME.childNodes[ROWS - 1].childNodes[CELLS - LEVEL_DIV_POSITION].childNodes[0].childNodes[0]
     }
 
     printGrid(){
@@ -105,26 +117,35 @@ class Game{
     win(){
         this.pacmanStop = true
         this.score = 0
-        BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.add("pacmanLive")
-        this.lives++
-        ghostsArray.forEach(item => {
-            item.ghostContainer = BOARD_GAME.childNodes[item.y].childNodes[item.x]
-            item.ghostContainer.removeChild(item.ghostContainer.childNodes[0])
-        })
-        
-        setTimeout(() => {
-            ghostsArray = []
-            currentContainer.removeChild(currentPacman)
-            this.pacmanStop = false
-            this.refillGrid()
-            pacman = new Pacman()
-            ghosts()
-        }, 1000)
+        this.level++
+        if(this.level >= 4){
+            console.log(`Congrats, you won`)
+        }else{
+            BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.add("pacmanLive")
+            this.lives++
+            htmlLevelContainer.innerHTML = this.level
+            ghostsArray.forEach(item => {
+                item.ghostContainer = BOARD_GAME.childNodes[item.y].childNodes[item.x]
+                item.ghostContainer.removeChild(item.ghostContainer.childNodes[0])
+            })
+            
+            setTimeout(() => {
+                ghostsArray = []
+                currentContainer.removeChild(currentPacman)
+                this.pacmanStop = false
+                this.refillGrid()
+                pacman = new Pacman()
+                ghosts()
+            }, 1000)
+        }
     }
 
     gameOver(){
         this.pacmanStop = true
         currentContainer.removeChild(currentPacman)
+        ghostsArray.forEach(item => {
+            item.ghostContainer.childNodes[0].style.zIndex = 0
+        })
 
         setTimeout(() => {
             this.lives--

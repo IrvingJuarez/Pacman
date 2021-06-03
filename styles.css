@@ -61,7 +61,7 @@ main{
 
     background-color: var(--insideColor);
 }
-.score{
+.score, .level{
     position: absolute;
     left: 0;
     bottom: 0;
@@ -71,12 +71,15 @@ main{
     width: 80px;
     height: 20px;
 }
-.score, .score span{
+.score, .score span, .level, .level span{
     font-size: 1.5rem;
     color: white;
 }
 .score::before{
     content: "Score: ";
+}
+.level::before{
+    content: "Level: ";
 }
 .board-game{
     width: 100%;
@@ -97,7 +100,7 @@ main{
 .portalRight{
     box-shadow: 5px 0px 5px blue;
 }
-.ghost1{
+.ghost1, .ghost2{
     position: absolute;
     left: calc(50% - 9px);
     top: calc(50% - 9px);
@@ -105,20 +108,6 @@ main{
     height: 18px;
 
     background-image: url("./assets/ghosts/ghost.png");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    z-index: 2;
-}
-.ghost2{
-    position: absolute;
-    left: calc(50% - 9px);
-    top: calc(50% - 9px);
-    width: 18px;
-    height: 18px;
-
-    background-image: url("./assets/ghosts/ghost_orange.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

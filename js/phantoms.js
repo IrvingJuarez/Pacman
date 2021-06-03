@@ -308,6 +308,6 @@ class Ghost{
 }
 
 function ghosts(){
-    var ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
+    // var ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
     // var ghost2 = new Ghost(11, 5, 2)
 }
