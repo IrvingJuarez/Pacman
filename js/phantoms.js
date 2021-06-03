@@ -201,9 +201,6 @@ class Ghost{
         this.ghostContainer.appendChild(this.currentGhostPosition)
         this.arrayPosibleDirections = []
 
-        this.isANewExpectedAxisNecessary()
-        this.noBiases()
-
         if(this.ghostContainer.childNodes[1]){
             this.plusOneGhost = true
         }else{
@@ -217,6 +214,9 @@ class Ghost{
                 item.ghostContainer.childNodes[0].style.zIndex = 0
             })
         }
+
+        this.isANewExpectedAxisNecessary()
+        this.noBiases()
     }
 
     isANewExpectedAxisNecessary(){
@@ -309,5 +309,5 @@ class Ghost{
 
 function ghosts(){
     var ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
-    var ghost2 = new Ghost(11, 5, 2)
+    // var ghost2 = new Ghost(11, 5, 2)
 }

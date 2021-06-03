@@ -105,6 +105,8 @@ class Game{
     win(){
         this.pacmanStop = true
         this.score = 0
+        BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.add("pacmanLive")
+        this.lives++
         ghostsArray.forEach(item => {
             item.ghostContainer = BOARD_GAME.childNodes[item.y].childNodes[item.x]
             item.ghostContainer.removeChild(item.ghostContainer.childNodes[0])
