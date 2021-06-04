@@ -21,8 +21,22 @@ class Ghost{
         this.currentGhostPosition.classList.add(`ghost${this.number}`)
         this.ghostContainer.appendChild(this.currentGhostPosition)
 
-        this.getExpectedX()
-        this.getExpectedY()
+        this.inJail()
+    }
+    
+    inJail(){
+        if(this.ghostContainer.dataset.value == 1){
+            setTimeout(() => {
+                this.towardsX = "Right"
+                this.towardsY = "Up"
+                this.arrayPosibleDirections.push("Up")
+                this.setNextMovement(this.towardsX, this.towardsY)
+                // this.inJail()
+            }, this.number * 2000)
+        }else{
+            this.getExpectedX()
+            this.getExpectedY()
+        }
     }
 
     getExpectedX(){
@@ -180,7 +194,7 @@ class Ghost{
         }else{
             (value) ? this.y++ : this.y--
         }
-        if(!newGame.pacmanStop)
+        if(!this.stop)
             this.changePosition()
     }
 
@@ -307,7 +321,19 @@ class Ghost{
     }
 }
 
-function ghosts(){
-    // var ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
-    // var ghost2 = new Ghost(11, 5, 2)
+function ghosts(howManyGhosts){
+    switch(howManyGhosts){
+        case 1:
+            var ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
+        break;
+        case 2:
+            var ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
+            var ghost2 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 11, 2)
+        break;
+        case 3:
+            var ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
+            var ghost2 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 11, 2)
+            var ghost3 = new Ghost((window.innerWidth <= 509) ? 6 : 11, 11, 3)
+        break;
+    }
 }

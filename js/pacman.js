@@ -254,6 +254,13 @@ class Pacman{
             if(newGame.score === newGame.winScore){
                 newGame.win()
             }
+
+            if(currentContainer.classList.contains("superChocolate")){
+                currentContainer.classList.remove("superChocolate")
+                ghostsArray.forEach(item => {
+                    item.stop = true
+                })
+            }
         }
     }
 }

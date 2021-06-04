@@ -107,10 +107,15 @@ main{
     width: 18px;
     height: 18px;
 
-    background-image: url("./assets/ghosts/ghost.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+.ghost1{
+    background-image: url("./assets/ghosts/ghost.png");
+}
+.ghost2{
+    background-image: url("./assets/ghosts/ghost_orange.png");
 }
 .pacmanLive{
     background-size: contain;
@@ -118,11 +123,16 @@ main{
     background-repeat: no-repeat;
     background-image: url("./assets/pacman/pacmanPhoto.png");
 }
-.chocolate{
+.chocolate, .superChocolate{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+.chocolate{
     background-image: url("./assets/pacman/award.png");
+}
+.superChocolate{
+    background-image: url("./assets/pacman/super_award.png");
 }
 .winCard{
     position: absolute;

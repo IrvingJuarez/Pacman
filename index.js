@@ -8,6 +8,7 @@ const CELLS = (window.innerWidth <= 509) ? 14 : 23
 const SCORE_DIV_POSITION = 3, LEVEL_DIV_POSITION = 7
 const WINCARD = document.getElementById("winCard")
 const WINCARD_RELOAD = document.getElementById("winCard_reload"), WINCARD_PLAYAGAIN = document.getElementById("winCard_playAgain")
+var superChocolateArray = [{position: 0, x: 0, y: 0}, {position: 1, x: CELLS - 1, y: 0}, {position: 2, x: 1, y: ROWS - 2}, {position: 3, x: CELLS - 2, y: ROWS - 2}]
 var pacman, currentClass, htmlScoreContainer, htmlLevelContainer
 
 class Game{
@@ -63,6 +64,9 @@ class Game{
     }
 
     printGrid(){
+        superChocolateArray.forEach(item => {
+            superChocolateArray[item.position] = BOARD_GAME.childNodes[item.y].childNodes[item.x]
+        })
 
         if(window.innerWidth <= 509){
             BOARD_GAME_STYLES.href = "./css/boardGame.css"
@@ -112,11 +116,14 @@ class Game{
         })
 
         pacman = new Pacman()
-        ghosts()
+        ghosts(this.level)
     }
 
     win(){
         this.pacmanStop = true
+        ghostsArray.forEach(item => {
+            item.stop = true
+        })
         this.score = 0
         this.level++
         if(this.level >= 4){
@@ -134,15 +141,21 @@ class Game{
                 ghostsArray = []
                 currentContainer.removeChild(currentPacman)
                 this.pacmanStop = false
+                ghostsArray.forEach(item => {
+                    item.stop = false
+                })
                 this.refillGrid()
                 pacman = new Pacman()
-                ghosts()
+                ghosts(this.level)
             }, 1000)
         }
     }
 
     gameOver(){
         this.pacmanStop = true
+        ghostsArray.forEach(item => {
+            item.stop = true
+        })
         currentContainer.removeChild(currentPacman)
         ghostsArray.forEach(item => {
             item.ghostContainer.childNodes[0].style.zIndex = 0
@@ -157,13 +170,16 @@ class Game{
                     item.ghostContainer.removeChild(item.ghostContainer.childNodes[0])
                 })
                 newGame.pacmanStop = false
+                ghostsArray.forEach(item => {
+                    item.stop = false
+                })
                 BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.remove("pacmanLive")
                 pacman.oldKeyboardCode = 37
                 pacman.process = false
                 pacman.y = initialY
                 pacman.x = initialX
                 ghostsArray = []
-                ghosts()
+                ghosts(this.level)
                 pacman.changePosition()
                 pacman.comprobation(pacman.oldKeyboardCode)
             }else{
@@ -183,6 +199,10 @@ class Game{
                     currentCell.classList.add("chocolate")
             }
         }
+
+        superChocolateArray.forEach(item => {
+            item.classList.add("superChocolate")
+        })
     }
 }
 
