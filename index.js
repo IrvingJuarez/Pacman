@@ -5,8 +5,9 @@ const BOARD_GAME = document.getElementById("board-game")
 const BOARD_GAME_STYLES = document.getElementById("boardGameStyles")
 const ROWS = 23
 const CELLS = (window.innerWidth <= 509) ? 14 : 23
-const SCORE_DIV_POSITION = 3
-const LEVEL_DIV_POSITION = 7
+const SCORE_DIV_POSITION = 3, LEVEL_DIV_POSITION = 7
+const WINCARD = document.getElementById("winCard")
+const WINCARD_RELOAD = document.getElementById("winCard_reload"), WINCARD_PLAYAGAIN = document.getElementById("winCard_playAgain")
 var pacman, currentClass, htmlScoreContainer, htmlLevelContainer
 
 class Game{
@@ -119,7 +120,7 @@ class Game{
         this.score = 0
         this.level++
         if(this.level >= 4){
-            console.log(`Congrats, you won`)
+            WINCARD.style.display = "flex"
         }else{
             BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.add("pacmanLive")
             this.lives++
@@ -189,3 +190,13 @@ function startGame(){
     newGame = new Game()
     FIRST_VIEW.style.display = "none"
 }
+
+WINCARD_RELOAD.addEventListener("click", () => {
+    location.reload()
+})
+
+WINCARD_PLAYAGAIN.addEventListener("click", () => {
+    WINCARD.style.display = "none"
+    BOARD_GAME.innerHTML = ""
+    newGame = new Game()
+})
