@@ -331,7 +331,7 @@ function ghosts(howManyGhosts){
         case 3:
             var ghost1 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 9, 1)
             var ghost2 = new Ghost((window.innerWidth <= 509) ? 7 : 11, 11, 2)
-            var ghost3 = new Ghost((window.innerWidth <= 509) ? 6 : 11, 11, 3)
+            var ghost3 = new Ghost((window.innerWidth <= 509) ? 6 : 10, 11, 3)
         break;
     }
 }

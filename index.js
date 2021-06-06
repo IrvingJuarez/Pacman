@@ -127,7 +127,13 @@ class Game{
         this.score = 0
         this.level++
         if(this.level >= 4){
-            WINCARD.style.display = "flex"
+            this.pacmanStop = true
+            ghostsArray.forEach(item => {
+                item.stop = true
+            })
+            setTimeout(() => {
+                WINCARD.style.display = "flex"
+            }, 2000)
         }else{
             BOARD_GAME.childNodes[ROWS - 1].childNodes[newGame.lives].classList.add("pacmanLive")
             this.lives++

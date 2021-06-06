@@ -6,6 +6,7 @@ var timeMovement = 0;
 
 class Pacman{
     constructor(){
+        this.deathGhostContainers = []
         this.time = 5
         this.oldKeyboardCode = 37
         currentClass = "pacmanLeft"
@@ -258,19 +259,26 @@ class Pacman{
 
             if(currentContainer.classList.contains("superChocolate")){
                 if(!ghostsArray[0].ghostContainer.classList.contains("deathGhost")){
-                    currentContainer.classList.remove("superChocolate")
-                    
-                    ghostsArray.forEach(item => {
-                        item.stop = true
-                        item.ghostContainer.removeChild(item.ghostContainer.firstChild)
-                        item.ghostContainer.classList.add("deathGhost")
-                    })
+                    this.ghostDeath()
                 }
-
-                if(this.time <= 5)
-                    this.ghostAliveAgain()
             }
+        }else if(currentContainer.classList.contains("superChocolate")){
+            this.ghostDeath()
         }
+    }
+
+    ghostDeath(){
+        currentContainer.classList.remove("superChocolate")
+                    
+        ghostsArray.forEach(item => {
+            item.stop = true
+            item.ghostContainer.removeChild(item.ghostContainer.firstChild)
+            item.ghostContainer.classList.add("deathGhost")
+            this.deathGhostContainers.push(item.ghostContainer)
+        })
+
+        console.log(this.deathGhostContainers)
+        this.ghostAliveAgain()
     }
 
     ghostAliveAgain(){
@@ -282,6 +290,6 @@ class Pacman{
                 item.stop = false
                 this.time = 5
             })
-        }, 1000 * this.time)
+        }, 5000)
     }
 }
