@@ -7,7 +7,7 @@ const ROWS = 23
 const CELLS = (window.innerWidth <= 509) ? 14 : 23
 const SCORE_DIV_POSITION = 3, LEVEL_DIV_POSITION = 7
 const WINCARD = document.getElementById("winCard")
-const WINCARD_RELOAD = document.getElementById("winCard_reload"), WINCARD_PLAYAGAIN = document.getElementById("winCard_playAgain")
+const WINCARD_PLAYAGAIN = document.getElementById("winCard_playAgain")
 var superChocolateArray = [{position: 0, x: 0, y: 0}, {position: 1, x: CELLS - 1, y: 0}, {position: 2, x: 1, y: ROWS - 2}, {position: 3, x: CELLS - 2, y: ROWS - 2}]
 var pacman, currentClass, htmlScoreContainer, htmlLevelContainer
 
@@ -141,9 +141,6 @@ class Game{
                 ghostsArray = []
                 currentContainer.removeChild(currentPacman)
                 this.pacmanStop = false
-                ghostsArray.forEach(item => {
-                    item.stop = false
-                })
                 this.refillGrid()
                 pacman = new Pacman()
                 ghosts(this.level)
@@ -210,10 +207,6 @@ function startGame(){
     newGame = new Game()
     FIRST_VIEW.style.display = "none"
 }
-
-WINCARD_RELOAD.addEventListener("click", () => {
-    location.reload()
-})
 
 WINCARD_PLAYAGAIN.addEventListener("click", () => {
     WINCARD.style.display = "none"

@@ -100,7 +100,7 @@ main{
 .portalRight{
     box-shadow: 5px 0px 5px blue;
 }
-.ghost1, .ghost2{
+.ghost1, .ghost2, .ghost3{
     position: absolute;
     left: calc(50% - 9px);
     top: calc(50% - 9px);
@@ -117,13 +117,16 @@ main{
 .ghost2{
     background-image: url("./assets/ghosts/ghost_orange.png");
 }
+.ghost3{
+    background-image: url("./assets/ghosts/ghost_pink.png");
+}
 .pacmanLive{
     background-size: contain;
     background-position: bottom;
     background-repeat: no-repeat;
     background-image: url("./assets/pacman/pacmanPhoto.png");
 }
-.chocolate, .superChocolate{
+.chocolate, .superChocolate, .deathGhost{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -133,6 +136,9 @@ main{
 }
 .superChocolate{
     background-image: url("./assets/pacman/super_award.png");
+}
+.deathGhost{
+    background-image: url("./assets/gifs/giphy.gif");
 }
 .winCard{
     position: absolute;
@@ -166,7 +172,7 @@ main{
 }
 .winCard_buttons{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 210px;
     height: 50px;
@@ -179,13 +185,9 @@ main{
     font-weight: 700;
     border-radius: 15px;
 }
-.winCard_buttons button:nth-child(1){
+.winCard_buttons button{
     background-color: var(--insideColor);
     color: white;
-}
-.winCard_buttons button:nth-child(2){
-    border: 2px solid var(--insideColor);
-    background-color: transparent;
 }
 
 @media (min-width: 510px) {

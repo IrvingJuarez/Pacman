@@ -59,34 +59,34 @@ class Ghost{
 
     posibleDirections(){
         for(let i = 0; i < posibleAxis; i++){
-            let expectedPosition, nextDirection
+            // let this.expectedPosition, this.nextDirection
 
             switch (i) {
                 case 0: //Right
-                    (this.x === CELLS - 1) ? expectedPosition = undefined :
-                        expectedPosition = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
-                        nextDirection = "Right"
+                    (this.x === CELLS - 1) ? this.expectedPosition = undefined :
+                        this.expectedPosition = BOARD_GAME.childNodes[this.y].childNodes[this.x + 1]
+                        this.nextDirection = "Right"
                 break;
                 case 1: //Down
-                    (this.y === 21) ? expectedPosition = undefined :
-                        expectedPosition = BOARD_GAME.childNodes[this.y + 1].childNodes[this.x]
-                        nextDirection = "Down"
+                    (this.y === 21) ? this.expectedPosition = undefined :
+                        this.expectedPosition = BOARD_GAME.childNodes[this.y + 1].childNodes[this.x]
+                        this.nextDirection = "Down"
                 break;
                 case 2: //Left
-                    (this.x === 0) ? expectedPosition = undefined :
-                        expectedPosition = BOARD_GAME.childNodes[this.y].childNodes[this.x - 1]
-                        nextDirection = "Left"
+                    (this.x === 0) ? this.expectedPosition = undefined :
+                        this.expectedPosition = BOARD_GAME.childNodes[this.y].childNodes[this.x - 1]
+                        this.nextDirection = "Left"
                 break;
                 case 3: //Up
-                    (this.y === 0) ? expectedPosition = undefined :
-                        expectedPosition = BOARD_GAME.childNodes[this.y - 1].childNodes[this.x]
-                        nextDirection = "Up"
+                    (this.y === 0) ? this.expectedPosition = undefined :
+                        this.expectedPosition = BOARD_GAME.childNodes[this.y - 1].childNodes[this.x]
+                        this.nextDirection = "Up"
                 break;
             }
 
-            if(expectedPosition){
-                if(expectedPosition.dataset.value != 1)
-                    this.arrayPosibleDirections.push(nextDirection)
+            if(this.expectedPosition){
+                if(this.expectedPosition.dataset.value != 1)
+                    this.arrayPosibleDirections.push(this.nextDirection)
             }
         }
 
@@ -224,9 +224,7 @@ class Ghost{
         if(this.plusOneGhost === true){
             this.ghostContainer.childNodes[1].style.zIndex = -1;
         }else{
-            ghostsArray.forEach(item => {
-                item.ghostContainer.childNodes[0].style.zIndex = 0
-            })
+            this.ghostContainer.childNodes[0].style.zIndex = 0
         }
 
         this.isANewExpectedAxisNecessary()
